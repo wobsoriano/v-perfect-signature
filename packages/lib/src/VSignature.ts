@@ -49,6 +49,17 @@ export default defineComponent({
             this.currentPoints = null
         },
     },
+    computed: {
+        paths(): string[] {
+            return this.allPoints.map((point: Point[]) => {
+                return getSvgPathFromStroke(getStroke(point))
+            })
+        },
+        currentPath(): null | string {
+            if (!this.currentPoints) return null
+            return getSvgPathFromStroke(getStroke(this.currentPoints))
+        }
+    },
     mounted() {
         const canvas = document.querySelector('canvas')
         console.log(canvas)
