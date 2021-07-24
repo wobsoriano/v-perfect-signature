@@ -19,6 +19,7 @@
       "switch:3": "vue-demi-switch 3"
     },
     "dependencies": {
+      "perfect-freehand": "^0.4.91",
       "vue-demi": "^0.11.2"
     },
     "peerDependencies": {
