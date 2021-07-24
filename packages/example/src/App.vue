@@ -1,5 +1,5 @@
 <template>
-  <VSignature height="500px" width="500px" />
+  <VSignature height="600" width="600" />
 </template>
 
 <script lang="ts">
@@ -13,3 +13,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>

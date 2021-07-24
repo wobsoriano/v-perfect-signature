@@ -24,11 +24,11 @@ export default defineComponent({
     }),
     props: {
         width: {
-            type: String,
+            type: [String, Number],
             required: true
         },
         height: {
-            type: String,
+            type: [String, Number],
             required: true
         }
     },
@@ -55,6 +55,15 @@ export default defineComponent({
             this.allPoints = [...this.allPoints, this.currentPoints]
             this.currentPoints = null
         },
+        handlePointerEnter(e: PointerEvent) {
+            if (e.buttons === 1) {
+                this.handlePointerDown(e)
+            }
+        },
+        handlePointerLeave(e: PointerEvent) {
+            if (!this.isDrawing) return
+            this.handlePointerUp(e)
+        }
     },
     computed: {
         paths(): string[] {
@@ -67,17 +76,45 @@ export default defineComponent({
             return getSvgPathFromStroke(getStroke(this.currentPoints, initialSettings))
         }
     },
+    // watch: {
+    //     currentPath(newValue: null | string) {
+    //         const canvas = this.$refs.pad as HTMLCanvasElement
+    //         if (newValue && canvas) {
+    //             const ctx = canvas.getContext('2d')
+    //             const myPath = new Path2D(newValue)
+    //             // ctx!.fillStyle = "#FFF"
+    //             ctx!.fill(myPath)
+    //         }
+    //     }
+    // },
     mounted() {
-        const canvas = document.querySelector('canvas')
+        const svg = this.$refs.signaturePad as SVGElement
+        console.log(svg)
     },
     render() {
-        return h('canvas', {
-            style: `height: ${this.height}; width: ${this.width}; background: black`,
+        let paths = this.paths.map((path) => h('path', { d: path }))
+        if (this.currentPath) {
+            paths.push(h('path', { d: this.currentPath }))
+        }
+        const g = h('g', {
+            stroke: '#000',
+            fill: '#000'
+        }, paths)
+
+        return h('svg', {
+            ref: 'signaturePad',
+            style: `cursor: crosshair; touch-action: none;`,
+            width: this.width,
+            height: this.height,
+            // width: window.innerWidth,
+            // height: window.innerHeight,
             on: {
                 pointerdown: this.handlePointerDown,
                 pointerup: this.handlePointerUp,
-                pointermove: this.handlePointerMove
+                pointermove: this.handlePointerMove,
+                pointerenter: this.handlePointerEnter,
+                pointerleave: this.handlePointerLeave
             }
-        })
+        }, g)
     }
 })
