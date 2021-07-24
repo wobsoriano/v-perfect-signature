@@ -1,0 +1,51 @@
+{
+    "name": "v-signature",
+    "description": "TO-DO",
+    "keywords": [
+      "vue",
+      "signature",
+      "pad"
+    ],
+    "license": "MIT",
+    "version": "0.0.1",
+    "module": "dist/v-signature.esm.js",
+    "main": "dist/v-signature.cjs.js",
+    "unpkg": "dist/v-signature.global.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "rollup -c",
+      "build:watch": "rollup -c -w",
+      "switch:2": "vue-demi-switch 2 vue2",
+      "switch:3": "vue-demi-switch 3"
+    },
+    "dependencies": {
+      "vue-demi": "^0.11.2"
+    },
+    "peerDependencies": {
+      "@vue/composition-api": "^1.0.0-beta.1",
+      "vue": "^2.0.0 || >=3.0.0-rc.0"
+    },
+    "peerDependenciesMeta": {
+      "@vue/composition-api": {
+        "optional": true
+      }
+    },
+    "devDependencies": {
+      "@vue/compiler-sfc": "^3.0.11",
+      "rollup": "^2.52.8",
+      "rollup-plugin-dts": "^3.0.2",
+      "rollup-plugin-typescript2": "^0.30.0",
+      "tslib": "^2.3.0",
+      "typescript": "^4.2.3",
+      "vue": "^3.0.11",
+      "vue2": "npm:vue@2"
+    },
+    "files": [
+      "dist"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/wobsoriano/v-signature.git"
+    },
+    "homepage": "https://github.com/wobsoriano/v-signature#readme"
+  }

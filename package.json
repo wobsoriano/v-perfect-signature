@@ -1,0 +1,13 @@
+{
+    "name": "monorepo",
+    "private": true,
+    "workspaces": [
+      "packages/*"
+    ],
+    "scripts": {
+      "dev": "yarn workspace example dev",
+      "lib:watch": "yarn workspace v-signature run build:watch",
+      "lib": "yarn workspace v-signature",
+      "example": "yarn workspace example"
+    }
+}
