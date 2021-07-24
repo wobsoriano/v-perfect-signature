@@ -10,6 +10,13 @@ const initialPointsData = {
     currentPoints: null as Point[] | null
 }
 
+const initialSettings = {
+    size: 16,
+    thinning: 0.75,
+    smoothing: 0.5,
+    streamline: 0.5
+}
+
 export default defineComponent({
     data: () => ({
         ...initialPointsData,
@@ -52,17 +59,16 @@ export default defineComponent({
     computed: {
         paths(): string[] {
             return this.allPoints.map((point: Point[]) => {
-                return getSvgPathFromStroke(getStroke(point))
+                return getSvgPathFromStroke(getStroke(point, initialSettings))
             })
         },
         currentPath(): null | string {
             if (!this.currentPoints) return null
-            return getSvgPathFromStroke(getStroke(this.currentPoints))
+            return getSvgPathFromStroke(getStroke(this.currentPoints, initialSettings))
         }
     },
     mounted() {
         const canvas = document.querySelector('canvas')
-        console.log(canvas)
     },
     render() {
         return h('canvas', {
