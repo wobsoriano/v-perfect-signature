@@ -1,9 +1,8 @@
-import { defineComponent, PropType } from 'vue-demi'
-import h from './utils/h-demi'
 import getStroke, { StrokeOptions } from 'perfect-freehand'
 
-import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
-import { DEFAULT_OPTIONS } from './utils/constants'
+import { defineComponent, PropType } from "vue-demi";
+import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
+import { DEFAULT_OPTIONS } from '../utils/constants'
 
 type Point = [number, number, number]
 
@@ -12,7 +11,7 @@ const initialPointsData = {
     currentPoints: null as Point[] | null
 }
 
-export default defineComponent({
+export default defineComponent ({
     data: () => ({
         ...initialPointsData,
         isDrawing: false,
@@ -20,14 +19,12 @@ export default defineComponent({
     emits: ['onBegin', 'onEnd'],
     props: {
         width: {
-            type: String,
-            required: false,
-            default: '100%'
+            type: [String, Number],
+            required: true
         },
         height: {
-            type: String,
-            required: false,
-            default: '100%'
+            type: [String, Number],
+            required: true
         },
         dotSize: {
             type: Number,
@@ -81,13 +78,6 @@ export default defineComponent({
         isEmpty() {
             return this.allPoints.length === 0 && !this.currentPoints
         },
-        clear() {
-            this.allPoints = []
-            this.currentPoints = null
-        },
-        toCanvas() {
-            // TODO - Convert to canvas
-        }
     },
     computed: {
         strokeOptions(): StrokeOptions {
@@ -105,30 +95,4 @@ export default defineComponent({
             return getSvgPathFromStroke(getStroke(this.currentPoints, this.strokeOptions))
         },
     },
-    render() {
-        const paths = this.paths.map((path) => h('path', { d: path }))
-        if (this.currentPath) {
-            paths.push(h('path', { d: this.currentPath }))
-        }
-        
-        const group = h('g', {
-            stroke: this.penColor,
-            fill: this.backgroundColor
-        }, paths)
-
-        return h('svg', {
-            ref: 'signaturePad',
-            style: {
-                width: this.width,
-                height: this.height
-            },
-            on: {
-                pointerdown: this.handlePointerDown,
-                pointerup: this.handlePointerUp,
-                pointermove: this.handlePointerMove,
-                pointerenter: this.handlePointerEnter,
-                pointerleave: this.handlePointerLeave
-            }
-        }, group)
-    }
 })
