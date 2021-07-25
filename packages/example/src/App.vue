@@ -5,7 +5,7 @@
     width="500"
     ref="canvas"
   />
-  <button @click="doSomething">do something</button>
+  <button @click="clear">clear</button>
   <button @click="undo">Undo</button>
   <button @click="redo">Redo</button>
 </template>
@@ -27,9 +27,8 @@ export default defineComponent({
   mounted() {
   },
   methods: {
-    async doSomething() {
-      const res = await this.$refs.canvas.toDataURL('image/png')
-      console.log(res)
+    clear() {
+      this.$refs.canvas.clear()
     },
     undo() {
       this.$refs.canvas.undo()

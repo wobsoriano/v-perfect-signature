@@ -4,6 +4,7 @@ import getStroke, { StrokeOptions } from 'perfect-freehand'
 import h from './utils/h-demi'
 import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
 import svgToCanvas from './utils/svg-to-canvas'
+import convertToNonReactive from './utils/convert-to-non-reactive'
 import {
     DEFAULT_BACKGROUND_COLOR,
     DEFAULT_PEN_COLOR,
@@ -14,18 +15,20 @@ import {
 
 type Point = [number, number, number]
 
-const initialPointsData = {
-    allPoints: [] as [number, number, number][][],
-    currentPoints: null as [number, number, number][] | null
+interface InitialPointsData {
+    allPoints: Point[][]
+    currentPoints: Point[] | null
 }
-
-const initialHistory = [initialPointsData]
+const initialPointsData: InitialPointsData = {
+    allPoints: [],
+    currentPoints: null
+}
 
 export default defineComponent({
     data: () => ({
-        history: initialHistory,
+        history: convertToNonReactive<InitialPointsData[]>([initialPointsData]),
         historyStep: 0,
-        points: { ...initialHistory[0] },
+        points: convertToNonReactive<InitialPointsData>([initialPointsData][0]),
         isDrawing: false,
     }),
     emits: ['onBegin', 'onEnd'],
@@ -88,7 +91,7 @@ export default defineComponent({
             }
 
             this.points = { ...newHistoryRecord }
-            this.history = [...this.history, newHistoryRecord]
+            this.history = [...this.history, { ...newHistoryRecord }]
             this.historyStep += 1
             this.$emit('onEnd', e)
         },
@@ -104,22 +107,22 @@ export default defineComponent({
         undo() {
             if (this.historyStep === 0) return
             this.historyStep -= 1
-            const previous = this.history[this.historyStep]
+            const previous = convertToNonReactive<InitialPointsData>(this.history[this.historyStep])
             this.points = previous
         },
         redo() {
             if (this.historyStep === this.history.length - 1) return
             this.historyStep += 1
-            const next = this.history[this.historyStep]
+            const next = convertToNonReactive<InitialPointsData>(this.history[this.historyStep])
             this.points = next
         },
         isEmpty() {
             return !this.points.allPoints.length && !this.points.currentPoints
         },
         clear() {
-            this.history = [initialPointsData]
+            this.history = convertToNonReactive([initialPointsData])
             this.historyStep = 0
-            this.points = this.history[0]
+            this.points = convertToNonReactive([initialPointsData][0])
         },
         toCanvas() {
             const svgElement = this.$refs.signaturePad as SVGElement
