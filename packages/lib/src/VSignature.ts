@@ -25,7 +25,7 @@ export default defineComponent({
     data: () => ({
         history: initialHistory,
         historyStep: 0,
-        points: {...initialHistory[0]},
+        points: { ...initialHistory[0] },
         isDrawing: false,
     }),
     emits: ['onBegin', 'onEnd'],
@@ -77,19 +77,18 @@ export default defineComponent({
             }
         },
         handlePointerUp(e: PointerEvent) {
-            console.log('pointer up')
             e.preventDefault()
             this.isDrawing = false
 
             if (!this.points.currentPoints) return
 
-            const newEntry = {
+            const newHistoryRecord = {
                 allPoints: [...this.points.allPoints, this.points.currentPoints],
                 currentPoints: null
             }
 
-            this.points = { ...newEntry }
-            this.history = [...this.history, newEntry]
+            this.points = { ...newHistoryRecord }
+            this.history = [...this.history, newHistoryRecord]
             this.historyStep += 1
             this.$emit('onEnd', e)
         },
