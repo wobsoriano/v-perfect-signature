@@ -42,7 +42,12 @@ export default defineComponent({
         strokeOptions: {
             type: Object as PropType<StrokeOptions>,
             required: false,
-            default: undefined
+            default: {}
+        },
+        customStyle: {
+            type: Object,
+            required: false,
+            default: {}
         }
     },
     methods: {
@@ -114,7 +119,8 @@ export default defineComponent({
             style: {
                 width: this.width,
                 height: this.height,
-                backgroundColor: this.backgroundColor
+                backgroundColor: this.backgroundColor,
+                ...this.customStyle
             },
             on: {
                 pointerdown: this.handlePointerDown,

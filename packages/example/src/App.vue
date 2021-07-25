@@ -1,9 +1,9 @@
 <template>
   <VSignature
-  :options="options"
-  height="500"
-  width="500"
-  ref="canvas"
+    :stroke-options="strokeOptions"
+    height="500"
+    width="500"
+    ref="canvas"
   />
   <button @click="doSomething">do something</button>
 </template>
@@ -18,8 +18,8 @@ export default defineComponent({
     VSignature
   },
   data: () => ({
-    options: {
-      // dotSize: 8
+    strokeOptions: {
+      size: 5
     }
   }),
   mounted() {
