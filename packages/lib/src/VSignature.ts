@@ -1,7 +1,7 @@
 import { defineComponent, PropType } from 'vue-demi'
-import h from './utils/h-demi'
 import getStroke, { StrokeOptions } from 'perfect-freehand'
 
+import h from './utils/h-demi'
 import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
 import { DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR } from './utils/constants'
 
