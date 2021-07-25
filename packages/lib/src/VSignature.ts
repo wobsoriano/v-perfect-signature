@@ -15,20 +15,20 @@ import {
 
 type Point = [number, number, number]
 
-interface InitialPointsData {
+interface PointsData {
     allPoints: Point[][]
     currentPoints: Point[] | null
 }
-const initialPointsData: InitialPointsData = {
+const initialPointsData: PointsData = {
     allPoints: [],
     currentPoints: null
 }
 
 export default defineComponent({
     data: () => ({
-        history: convertToNonReactive<InitialPointsData[]>([initialPointsData]),
+        history: convertToNonReactive<PointsData[]>([initialPointsData]),
         historyStep: 0,
-        points: convertToNonReactive<InitialPointsData>([initialPointsData][0]),
+        points: convertToNonReactive<PointsData>([initialPointsData][0]),
         isDrawing: false,
     }),
     emits: ['onBegin', 'onEnd'],
@@ -107,13 +107,13 @@ export default defineComponent({
         undo() {
             if (this.historyStep === 0) return
             this.historyStep -= 1
-            const previous = convertToNonReactive<InitialPointsData>(this.history[this.historyStep])
+            const previous = convertToNonReactive<PointsData>(this.history[this.historyStep])
             this.points = previous
         },
         redo() {
             if (this.historyStep === this.history.length - 1) return
             this.historyStep += 1
-            const next = convertToNonReactive<InitialPointsData>(this.history[this.historyStep])
+            const next = convertToNonReactive<PointsData>(this.history[this.historyStep])
             this.points = next
         },
         isEmpty() {
