@@ -3,7 +3,7 @@ import h from './utils/h-demi'
 import getStroke, { StrokeOptions } from 'perfect-freehand'
 
 import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
-import { DEFAULT_OPTIONS } from './utils/constants'
+import { DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR } from './utils/constants'
 
 type Point = [number, number, number]
 
@@ -29,10 +29,20 @@ export default defineComponent({
             required: false,
             default: '100%'
         },
-        options: {
-            type: Object as PropType<typeof DEFAULT_OPTIONS>,
+        backgroundColor: {
+            type: String,
             required: false,
-            default: DEFAULT_OPTIONS
+            default: DEFAULT_BACKGROUND_COLOR
+        },
+        penColor: {
+            type: String,
+            required: false,
+            default: DEFAULT_PEN_COLOR
+        },
+        strokeOptions: {
+            type: Object as PropType<StrokeOptions>,
+            required: false,
+            default: undefined
         }
     },
     methods: {
@@ -78,12 +88,6 @@ export default defineComponent({
         }
     },
     computed: {
-        strokeOptions(): StrokeOptions {
-            return {
-                size: this.options.dotSize ?? DEFAULT_OPTIONS.dotSize,
-                simulatePressure: this.options.simulatePressure ?? DEFAULT_OPTIONS.simulatePressure
-            }
-        },
         paths(): string[] {
             return this.allPoints.map((point: Point[]) => {
                 return getSvgPathFromStroke(getStroke(point, this.strokeOptions))
@@ -99,15 +103,10 @@ export default defineComponent({
         if (this.currentPath) {
             paths.push(h('path', { d: this.currentPath }))
         }
-
-        const {
-            penColor,
-            backgroundColor
-        } = this.options
         
         const group = h('g', {
-            stroke: penColor,
-            fill: penColor
+            stroke: this.penColor,
+            fill: this.penColor
         }, paths)
 
         return h('svg', {
@@ -115,7 +114,7 @@ export default defineComponent({
             style: {
                 width: this.width,
                 height: this.height,
-                backgroundColor
+                backgroundColor: this.backgroundColor
             },
             on: {
                 pointerdown: this.handlePointerDown,
