@@ -28,6 +28,7 @@ export default [
         sourcemap: true,
         globals: {
           'vue-demi': 'VueDemi',
+          'perfect-freehand': 'getStroke'
         },
       }
     ]
