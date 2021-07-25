@@ -3,7 +3,8 @@ import getStroke, { StrokeOptions } from 'perfect-freehand'
 
 import h from './utils/h-demi'
 import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
-import { DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR } from './utils/constants'
+import svgToCanvas from './utils/svg-to-canvas'
+import { DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR, IMAGE_TYPES } from './utils/constants'
 
 type Point = [number, number, number]
 
@@ -85,11 +86,24 @@ export default defineComponent({
             this.handlePointerUp(e)
         },
         isEmpty() {
-            return this.allPoints.length === 0 && !this.currentPoints
+            return !this.allPoints.length && !this.currentPoints
         },
         clear() {
             this.allPoints = []
             this.currentPoints = null
+        },
+        toCanvas() {
+            const svgElement = this.$refs.signaturePad as SVGElement
+            return svgToCanvas(svgElement)
+        },
+        async toDataURL(type: string) {
+            if (type && !IMAGE_TYPES.includes(type)) {
+                throw new Error('Invalid image type!')
+            }
+
+            const svgElement = this.$refs.signaturePad as SVGElement
+            const canvas = await svgToCanvas(svgElement)
+            return canvas.toDataURL(type ?? 'image/png')
         }
     },
     computed: {
@@ -114,13 +128,21 @@ export default defineComponent({
             fill: this.penColor
         }, paths)
 
+        const {
+            width,
+            height,
+            backgroundColor,
+            customStyle
+        } = this
+
         return h('svg', {
             ref: 'signaturePad',
+            xmlns: 'http://www.w3.org/2000/svg',
             style: {
-                width: this.width,
-                height: this.height,
-                backgroundColor: this.backgroundColor,
-                ...this.customStyle
+                height,
+                width,
+                backgroundColor,
+                ...customStyle
             },
             on: {
                 pointerdown: this.handlePointerDown,

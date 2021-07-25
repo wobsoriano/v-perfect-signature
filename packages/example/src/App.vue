@@ -25,8 +25,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
-    doSomething() {
-      this.$refs.canvas.toCanvas()
+    async doSomething() {
+      const res = await this.$refs.canvas.toDataURL('image')
+      console.log(res)
     }
   }
 })
@@ -38,8 +39,8 @@ export default defineComponent({
   padding: 0;
 }
 
-html {
+/* html {
   height: 100vh;
   width: 100vw;
-}
+} */
 </style>
