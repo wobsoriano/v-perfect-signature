@@ -6,6 +6,8 @@
     ref="canvas"
   />
   <button @click="doSomething">do something</button>
+  <button @click="undo">Undo</button>
+  <button @click="redo">Redo</button>
 </template>
 
 <script lang="ts">
@@ -28,6 +30,12 @@ export default defineComponent({
     async doSomething() {
       const res = await this.$refs.canvas.toDataURL('image/png')
       console.log(res)
+    },
+    undo() {
+      this.$refs.canvas.undo()
+    },
+    redo() {
+      this.$refs.canvas.redo()
     }
   }
 })

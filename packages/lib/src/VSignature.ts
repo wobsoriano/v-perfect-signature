@@ -14,10 +14,18 @@ import {
 
 type Point = [number, number, number]
 
+const initialPointsData = {
+    allPoints: [] as [number, number, number][][],
+    currentPoints: null as [number, number, number][] | null
+}
+
+const initialHistory = [initialPointsData]
+
 export default defineComponent({
     data: () => ({
-        allPoints: [] as Point[][],
-        currentPoints: null as Point[] | null,
+        history: initialHistory,
+        historyStep: 0,
+        points: {...initialHistory[0]},
         isDrawing: false,
     }),
     emits: ['onBegin', 'onEnd'],
@@ -56,7 +64,7 @@ export default defineComponent({
     methods: {
         handlePointerDown(e: PointerEvent) {
             e.preventDefault()
-            this.currentPoints = [[e.pageX, e.pageY, e.pressure]]
+            this.points.currentPoints = [[e.pageX, e.pageY, e.pressure]]
             this.isDrawing = true
             this.$emit('onBegin', e)
         },
@@ -65,17 +73,24 @@ export default defineComponent({
 
             if (e.buttons === 1) {
                 e.preventDefault()
-                this.currentPoints = [...this.currentPoints ?? [], [e.pageX, e.pageY, e.pressure]]
+                this.points.currentPoints = [...this.points.currentPoints ?? [], [e.pageX, e.pageY, e.pressure]]
             }
         },
         handlePointerUp(e: PointerEvent) {
+            console.log('pointer up')
             e.preventDefault()
             this.isDrawing = false
 
-            if (!this.currentPoints) return
+            if (!this.points.currentPoints) return
 
-            this.allPoints = [...this.allPoints, this.currentPoints]
-            this.currentPoints = null
+            const newEntry = {
+                allPoints: [...this.points.allPoints, this.points.currentPoints],
+                currentPoints: null
+            }
+
+            this.points = { ...newEntry }
+            this.history = [...this.history, newEntry]
+            this.historyStep += 1
             this.$emit('onEnd', e)
         },
         handlePointerEnter(e: PointerEvent) {
@@ -87,12 +102,25 @@ export default defineComponent({
             if (!this.isDrawing) return
             this.handlePointerUp(e)
         },
+        undo() {
+            if (this.historyStep === 0) return
+            this.historyStep -= 1
+            const previous = this.history[this.historyStep]
+            this.points = previous
+        },
+        redo() {
+            if (this.historyStep === this.history.length - 1) return
+            this.historyStep += 1
+            const next = this.history[this.historyStep]
+            this.points = next
+        },
         isEmpty() {
-            return !this.allPoints.length && !this.currentPoints
+            return !this.points.allPoints.length && !this.points.currentPoints
         },
         clear() {
-            this.allPoints = []
-            this.currentPoints = null
+            this.history = [initialPointsData]
+            this.historyStep = 0
+            this.points = this.history[0]
         },
         toCanvas() {
             const svgElement = this.$refs.signaturePad as SVGElement
@@ -110,13 +138,13 @@ export default defineComponent({
     },
     computed: {
         paths(): string[] {
-            return this.allPoints.map((point: Point[]) => {
+            return this.points.allPoints.map((point: Point[]) => {
                 return getSvgPathFromStroke(getStroke(point, this.strokeOptions))
             })
         },
         currentPath(): null | string {
-            if (!this.currentPoints) return null
-            return getSvgPathFromStroke(getStroke(this.currentPoints, this.strokeOptions))
+            if (!this.points.currentPoints) return null
+            return getSvgPathFromStroke(getStroke(this.points.currentPoints, this.strokeOptions))
         },
     },
     render() {
