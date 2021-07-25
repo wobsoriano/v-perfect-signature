@@ -1,5 +1,10 @@
 <template>
-  <VSignature :dot-size="dotSize" pen-color="#000" height="500" width="500" ref="canvas" />
+  <VSignature
+  :options="options"
+  height="500"
+  width="500"
+  ref="canvas"
+  />
   <button @click="doSomething">do something</button>
 </template>
 
@@ -13,8 +18,12 @@ export default defineComponent({
     VSignature
   },
   data: () => ({
-    dotSize: 8
+    options: {
+      dotSize: 8
+    }
   }),
+  mounted() {
+  },
   methods: {
     doSomething() {
       this.$refs.canvas.clear()

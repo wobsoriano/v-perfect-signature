@@ -12,6 +12,12 @@ const initialPointsData = {
     currentPoints: null as Point[] | null
 }
 
+export interface Options {
+    dotSize?: number
+    penColor?: string
+    backgroundColor?: string
+}
+
 export default defineComponent({
     data: () => ({
         ...initialPointsData,
@@ -29,25 +35,16 @@ export default defineComponent({
             required: false,
             default: '100%'
         },
-        dotSize: {
-            type: Number,
+        options: {
+            type: Object as PropType<Options>,
             required: false,
-            default: DEFAULT_OPTIONS.dotSize
-        },
-        penColor: {
-            type: String,
-            required: false,
-            default: DEFAULT_OPTIONS.penColor
-        },
-        backgroundColor: {
-            type: String,
-            required: false,
-            default: DEFAULT_OPTIONS.backgroundColor
+            default: DEFAULT_OPTIONS
         }
     },
     methods: {
         handlePointerDown(e: PointerEvent) {
             e.preventDefault()
+            this.currentPoints = [[e.pageX, e.pageY, e.pressure]]
             this.isDrawing = true
             this.$emit('onBegin', e)
         },
@@ -92,7 +89,7 @@ export default defineComponent({
     computed: {
         strokeOptions(): StrokeOptions {
             return {
-                size: this.dotSize
+                size: this.options.dotSize
             }
         },
         paths(): string[] {
@@ -112,8 +109,8 @@ export default defineComponent({
         }
         
         const group = h('g', {
-            stroke: this.penColor,
-            fill: this.backgroundColor
+            stroke: this.options.penColor,
+            fill: this.options.backgroundColor
         }, paths)
 
         return h('svg', {
