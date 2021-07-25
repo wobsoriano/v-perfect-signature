@@ -12,12 +12,6 @@ const initialPointsData = {
     currentPoints: null as Point[] | null
 }
 
-export interface Options {
-    dotSize?: number
-    penColor?: string
-    backgroundColor?: string
-}
-
 export default defineComponent({
     data: () => ({
         ...initialPointsData,
@@ -36,7 +30,7 @@ export default defineComponent({
             default: '100%'
         },
         options: {
-            type: Object as PropType<Options>,
+            type: Object as PropType<typeof DEFAULT_OPTIONS>,
             required: false,
             default: DEFAULT_OPTIONS
         }
@@ -81,15 +75,13 @@ export default defineComponent({
         clear() {
             this.allPoints = []
             this.currentPoints = null
-        },
-        toCanvas() {
-            // TODO - Convert to canvas
         }
     },
     computed: {
         strokeOptions(): StrokeOptions {
             return {
-                size: this.options.dotSize
+                size: this.options.dotSize ?? DEFAULT_OPTIONS.dotSize,
+                simulatePressure: this.options.simulatePressure ?? DEFAULT_OPTIONS.simulatePressure
             }
         },
         paths(): string[] {
@@ -107,17 +99,23 @@ export default defineComponent({
         if (this.currentPath) {
             paths.push(h('path', { d: this.currentPath }))
         }
+
+        const {
+            penColor,
+            backgroundColor
+        } = this.options
         
         const group = h('g', {
-            stroke: this.options.penColor,
-            fill: this.options.backgroundColor
+            stroke: penColor,
+            fill: penColor
         }, paths)
 
         return h('svg', {
             ref: 'signaturePad',
             style: {
                 width: this.width,
-                height: this.height
+                height: this.height,
+                backgroundColor
             },
             on: {
                 pointerdown: this.handlePointerDown,

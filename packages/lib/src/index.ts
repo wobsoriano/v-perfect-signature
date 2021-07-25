@@ -1,11 +1,7 @@
-import VSignature, { Options } from './VSignature'
+import VSignature from './VSignature'
 
 export {
     StrokeOptions
 } from 'perfect-freehand'
-
-export {
-    Options
-}
 
 export default VSignature

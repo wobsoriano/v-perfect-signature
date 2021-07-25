@@ -1,5 +1,6 @@
 export const DEFAULT_OPTIONS = {
-    dotSize: (0.5 + 2.5) / 2,
-    backgroundColor: '#000',
+    dotSize: 8,
+    simulatePressure: true,
+    backgroundColor: 'rgba(0,0,0,0)',
     penColor: '#000',
 }

@@ -19,14 +19,14 @@ export default defineComponent({
   },
   data: () => ({
     options: {
-      dotSize: 8
+      // dotSize: 8
     }
   }),
   mounted() {
   },
   methods: {
     doSomething() {
-      this.$refs.canvas.clear()
+      this.$refs.canvas.toCanvas()
     }
   }
 })
