@@ -4,18 +4,20 @@ import getStroke, { StrokeOptions } from 'perfect-freehand'
 import h from './utils/h-demi'
 import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
 import svgToCanvas from './utils/svg-to-canvas'
-import { DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR, IMAGE_TYPES } from './utils/constants'
+import {
+    DEFAULT_BACKGROUND_COLOR,
+    DEFAULT_PEN_COLOR,
+    IMAGE_TYPES,
+    DEFAULT_HEIGHT,
+    DEFAULT_WIDTH
+} from './utils/constants'
 
 type Point = [number, number, number]
 
-const initialPointsData = {
-    allPoints: [] as Point[][],
-    currentPoints: null as Point[] | null
-}
-
 export default defineComponent({
     data: () => ({
-        ...initialPointsData,
+        allPoints: [] as Point[][],
+        currentPoints: null as Point[] | null,
         isDrawing: false,
     }),
     emits: ['onBegin', 'onEnd'],
@@ -23,12 +25,12 @@ export default defineComponent({
         width: {
             type: String,
             required: false,
-            default: '100%'
+            default: DEFAULT_WIDTH
         },
         height: {
             type: String,
             required: false,
-            default: '100%'
+            default: DEFAULT_HEIGHT
         },
         backgroundColor: {
             type: String,
@@ -118,16 +120,6 @@ export default defineComponent({
         },
     },
     render() {
-        const paths = this.paths.map((path) => h('path', { d: path }))
-        if (this.currentPath) {
-            paths.push(h('path', { d: this.currentPath }))
-        }
-        
-        const group = h('g', {
-            stroke: this.penColor,
-            fill: this.penColor
-        }, paths)
-
         const {
             width,
             height,
@@ -151,6 +143,14 @@ export default defineComponent({
                 pointerenter: this.handlePointerEnter,
                 pointerleave: this.handlePointerLeave
             }
-        }, group)
+        }, [
+            h('g', {
+                stroke: this.penColor,
+                fill: this.penColor
+            }, [
+                ...this.paths.map((path) => h('path', { d: path })),
+                this.currentPath ? h('path', { d: this.currentPath }) : []
+            ])
+        ])
     }
 })

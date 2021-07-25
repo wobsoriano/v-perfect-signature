@@ -26,7 +26,7 @@ export default defineComponent({
   },
   methods: {
     async doSomething() {
-      const res = await this.$refs.canvas.toDataURL('image')
+      const res = await this.$refs.canvas.toDataURL('image/png')
       console.log(res)
     }
   }
