@@ -1,17 +1,17 @@
 import { defineComponent, PropType } from 'vue-demi'
 import getStroke, { StrokeOptions } from 'perfect-freehand'
 
-import h from './utils/h-demi'
-import getSvgPathFromStroke from './utils/get-svg-path-from-stroke'
-import svgToCanvas from './utils/svg-to-canvas'
-import convertToNonReactive from './utils/convert-to-non-reactive'
+import h from '../utils/h-demi'
+import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
+import svgToCanvas from '../utils/svg-to-canvas'
+import convertToNonReactive from '../utils/convert-to-non-reactive'
 import {
     DEFAULT_BACKGROUND_COLOR,
     DEFAULT_PEN_COLOR,
     IMAGE_TYPES,
     DEFAULT_HEIGHT,
     DEFAULT_WIDTH
-} from './utils/constants'
+} from '../utils/constants'
 
 type Point = [number, number, number]
 
@@ -128,10 +128,12 @@ export default defineComponent({
             const svgElement = this.$refs.signaturePad as SVGElement
             return svgToCanvas(svgElement)
         },
-        async toDataURL(type: string) {
+        async toDataURL(type?: string) {
             if (type && !IMAGE_TYPES.includes(type)) {
-                throw new Error('Invalid image type!')
+                throw new Error('Incorrect image type!')
             }
+
+            if (this.isEmpty()) return
 
             const svgElement = this.$refs.signaturePad as SVGElement
             const canvas = await svgToCanvas(svgElement)

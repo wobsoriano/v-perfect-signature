@@ -28,7 +28,8 @@ export default defineComponent({
   },
   methods: {
     clear() {
-      this.$refs.canvas.clear()
+      // this.$refs.canvas.clear()
+      console.log(JSON.parse(JSON.stringify(this.$refs.canvas.points)))
     },
     undo() {
       this.$refs.canvas.undo()
