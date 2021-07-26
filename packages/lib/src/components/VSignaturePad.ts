@@ -132,10 +132,6 @@ export default defineComponent({
             this.historyStep = 0
             this.points = convertToNonReactive([initialPointsData][0])
         },
-        toCanvas() {
-            const svgElement = this.$refs.signaturePad as SVGElement
-            return svgToCanvas(svgElement)
-        },
         fromData(data: Point[][]) {
             this.history = [{
                 allPoints: data,
@@ -144,8 +140,22 @@ export default defineComponent({
             this.historyStep = 0
             this.points = convertToNonReactive(this.history[this.historyStep])
         },
-        fromDataURL(dataUrl: string) {
-            
+        fromDataURL(dataURI: string) {
+            if (!dataURI || !dataURI.includes('data:image/svg+xml')) {
+                throw new Error('Incorrect type. Only image/svg+xml is allowed.')
+            }
+
+            // TODO: Should we enable other methods with this?
+            this.fromData(convertToNonReactive(initialPointsData))
+
+            // TODO: atob is deprecated, replace with newer solution
+            const data = atob(dataURI.replace(/data:image\/svg\+xml;base64,/, ''))
+
+            // Replace contents of svg.
+            // This does not update data. Thus, fromDataURL
+            // won't work properly.
+            const svg = this.$refs.signaturePad as SVGElement
+            svg.innerHTML = data
         },
         toData() {
             return this.history[this.historyStep].allPoints
