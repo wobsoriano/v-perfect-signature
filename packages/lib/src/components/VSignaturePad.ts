@@ -104,17 +104,25 @@ export default defineComponent({
             if (!this.isDrawing) return
             this.handlePointerUp(e)
         },
+        canUndo() {
+            return this.historyStep > 0
+        },
+        canRedo() {
+            return this.historyStep !== this.history.length - 1
+        },
         undo() {
-            if (this.historyStep === 0) return
-            this.historyStep -= 1
-            const previous = convertToNonReactive<PointsData>(this.history[this.historyStep])
-            this.points = previous
+            if (this.canUndo()) {
+                this.historyStep -= 1
+                const previous = convertToNonReactive<PointsData>(this.history[this.historyStep])
+                this.points = previous
+            }
         },
         redo() {
-            if (this.historyStep === this.history.length - 1) return
-            this.historyStep += 1
-            const next = convertToNonReactive<PointsData>(this.history[this.historyStep])
-            this.points = next
+            if (this.canRedo()) {
+                this.historyStep += 1
+                const next = convertToNonReactive<PointsData>(this.history[this.historyStep])
+                this.points = next
+            }
         },
         isEmpty() {
             return this.history[this.historyStep].allPoints.length === 0
@@ -137,7 +145,7 @@ export default defineComponent({
             this.points = convertToNonReactive(this.history[this.historyStep])
         },
         fromDataURL(dataUrl: string) {
-    
+            
         },
         toData() {
             return this.history[this.historyStep].allPoints
