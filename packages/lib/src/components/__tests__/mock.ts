@@ -1,4 +1,9 @@
-export const signatureMockData = {
+export const initialPointsMockData = {
+    allPoints: [],
+    currentPoints: null
+}
+
+export const pointsMockData = {
     allPoints: [
         [
             77.78125,

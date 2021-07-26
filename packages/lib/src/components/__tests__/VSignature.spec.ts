@@ -1,7 +1,7 @@
 import VSignature from '../VSignature'
 import { shallowMount } from '@vue/test-utils'
 
-import { signatureMockData } from './mock'
+import { pointsMockData, initialPointsMockData } from './mock'
 
 describe('VSignature', () => {
     it('should receive default props', () => {
@@ -34,64 +34,49 @@ describe('VSignature', () => {
     });
 
     it('should clear signature', () => {
-        const initialPointsData = {
-            allPoints: [],
-            currentPoints: null
-        }
-
         const wrapper = shallowMount(VSignature)
 
         wrapper.setData({
-            history: [signatureMockData],
+            history: [pointsMockData],
             historyStep: 1,
-            points: initialPointsData
+            points: initialPointsMockData
         })
         wrapper.vm.clear()
 
-        expect(wrapper.vm.history).toEqual([initialPointsData])
+        expect(wrapper.vm.history).toEqual([initialPointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
         expect(wrapper.vm.points).toEqual(wrapper.vm.history[0])
     });
 
     it('should undo signature', () => {
-        const initialPointsData = {
-            allPoints: [],
-            currentPoints: null
-        }
-
         const wrapper = shallowMount(VSignature)
 
         wrapper.setData({
-            history: [signatureMockData],
+            history: [pointsMockData],
             historyStep: 1,
-            points: initialPointsData
+            points: initialPointsMockData
         })
 
         wrapper.vm.undo()
 
-        expect(wrapper.vm.points).toEqual(initialPointsData)
-        expect(wrapper.vm.history).toEqual([initialPointsData, signatureMockData])
+        expect(wrapper.vm.points).toEqual(initialPointsMockData)
+        expect(wrapper.vm.history).toEqual([initialPointsMockData, pointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
     });
 
     it('should redo signature', () => {
-        const initialPointsData = {
-            allPoints: [],
-            currentPoints: null
-        }
-
         const wrapper = shallowMount(VSignature)
 
         wrapper.setData({
-            history: [signatureMockData],
+            history: [pointsMockData],
             historyStep: 0,
-            points: initialPointsData
+            points: initialPointsMockData
         })
 
         wrapper.vm.redo()
 
-        expect(wrapper.vm.points).toEqual(signatureMockData)
-        expect(wrapper.vm.history).toEqual([initialPointsData, signatureMockData])
+        expect(wrapper.vm.points).toEqual(pointsMockData)
+        expect(wrapper.vm.history).toEqual([initialPointsMockData, pointsMockData])
         expect(wrapper.vm.historyStep).toBe(1)
     })
 
