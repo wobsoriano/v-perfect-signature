@@ -136,10 +136,13 @@ export default defineComponent({
             this.historyStep = 0
             this.points = convertToNonReactive(this.history[this.historyStep])
         },
+        fromDataURL(dataUrl: string) {
+    
+        },
         toData() {
             return this.history[this.historyStep].allPoints
         },
-        async toDataURL(type?: string) {
+        async toDataURL(type: string = 'image/svg+xml') {
             if (type && !IMAGE_TYPES.includes(type)) {
                 throw new Error('Incorrect image type!')
             }
@@ -150,7 +153,7 @@ export default defineComponent({
 
             const svgElement = this.$refs.signaturePad as SVGElement
             const canvas = await svgToCanvas(svgElement)
-            return canvas.toDataURL(type ?? 'image/png')
+            return canvas.toDataURL(type)
         }
     },
     computed: {
