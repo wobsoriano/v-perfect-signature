@@ -28,10 +28,10 @@ describe('VSignature', () => {
         await expect(wrapper.vm.toDataURL('text/html')).rejects.toThrow('Incorrect image type!')
     })
 
-    it('should return undefined', async () => {
+    it('should return undefined on empty signature', async () => {
         const wrapper = shallowMount(VSignature)
 
-        await expect(wrapper.vm.toDataURL()).resolves.toBe(undefined)
+        await expect(wrapper.vm.toDataURL()).resolves.toBeUndefined()
     })
 
     it('should return signature pad data', async () => {
@@ -85,7 +85,7 @@ describe('VSignature', () => {
         expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
     })
 
-    it('should undo signature', () => {
+    it('should undo draw action', () => {
         const wrapper = shallowMount(VSignature)
 
         wrapper.setData({
@@ -98,7 +98,7 @@ describe('VSignature', () => {
         expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
     })
 
-    it('should redo signature', () => {
+    it('should redo draw action', () => {
         const wrapper = shallowMount(VSignature)
 
         wrapper.setData({
