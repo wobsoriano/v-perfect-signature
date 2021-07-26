@@ -5,6 +5,7 @@ import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
 import svgToCanvas from '../utils/svg-to-canvas'
 import convertToNonReactive from '../utils/convert-to-non-reactive'
+import parseHTML from '../utils/parse-html-string'
 import {
     DEFAULT_BACKGROUND_COLOR,
     DEFAULT_PEN_COLOR,
@@ -133,20 +134,19 @@ export default defineComponent({
             this.points = convertToNonReactive([initialPointsData][0])
         },
         fromData(data: Point[][]) {
-            this.history = [{
-                allPoints: data,
+            const newHistoryRecord: PointsData = {
+                allPoints: [...this.points.allPoints, ...data],
                 currentPoints: null
-            }]
-            this.historyStep = 0
-            this.points = convertToNonReactive(this.history[this.historyStep])
+            }
+
+            this.points = { ...newHistoryRecord }
+            this.history = [...this.history, { ...newHistoryRecord }]
+            this.historyStep += 1
         },
         fromDataURL(dataURI: string) {
             if (!dataURI || !dataURI.includes('data:image/svg+xml')) {
                 throw new Error('Incorrect type. Only image/svg+xml is allowed.')
             }
-
-            // TODO: Should we enable other methods with this?
-            this.fromData(convertToNonReactive(initialPointsData))
 
             // TODO: atob is deprecated, replace with newer solution
             const data = atob(dataURI.replace(/data:image\/svg\+xml;base64,/, ''))
@@ -155,7 +155,11 @@ export default defineComponent({
             // This does not update data. Thus, fromDataURL
             // won't work properly.
             const svg = this.$refs.signaturePad as SVGElement
-            svg.innerHTML = data
+            const group = svg.querySelector('g')
+            const newSvg = parseHTML(data)
+            newSvg.querySelectorAll('path').forEach((path) => {
+                group?.appendChild(path)
+            })
         },
         toData() {
             return this.history[this.historyStep].allPoints
