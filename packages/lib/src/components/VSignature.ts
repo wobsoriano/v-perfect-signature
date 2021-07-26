@@ -117,7 +117,7 @@ export default defineComponent({
             this.points = next
         },
         isEmpty() {
-            return !this.points.allPoints.length && !this.points.currentPoints
+            return this.historyStep === 0
         },
         clear() {
             this.history = convertToNonReactive([initialPointsData])
@@ -133,7 +133,9 @@ export default defineComponent({
                 throw new Error('Incorrect image type!')
             }
 
-            if (this.isEmpty()) return
+            if (this.isEmpty()) {
+                return
+            }
 
             const svgElement = this.$refs.signaturePad as SVGElement
             const canvas = await svgToCanvas(svgElement)

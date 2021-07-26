@@ -27,9 +27,12 @@ export default defineComponent({
   mounted() {
   },
   methods: {
-    clear() {
+    async clear() {
       // this.$refs.canvas.clear()
-      console.log(JSON.parse(JSON.stringify(this.$refs.canvas.points)))
+      // console.log(JSON.parse(JSON.stringify(this.$refs.canvas.points)))
+      // const data = await this.$refs.canvas.toDataURL()
+      // console.log(data)
+      this.$refs.canvas.toDataURL()
     },
     undo() {
       this.$refs.canvas.undo()

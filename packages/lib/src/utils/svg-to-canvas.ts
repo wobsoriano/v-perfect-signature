@@ -17,6 +17,7 @@ export default async function svgToCanvas(svgElement: SVGElement): Promise<HTMLC
         }
         
         image.onerror = () => {
+            console.log('error')
             reject('Unable to convert svg to canvas')
         }
 

@@ -1,7 +1,7 @@
 import VSignature from '../VSignature'
 import { shallowMount } from '@vue/test-utils'
 
-import { pointsMockData, emptyPointsMockData } from './mock'
+import { pointsMockData, emptyPointsMockData, mockDataURL } from './mock'
 
 describe('VSignature', () => {
     it('should receive default props', () => {
@@ -34,6 +34,24 @@ describe('VSignature', () => {
         await expect(wrapper.vm.toDataURL()).resolves.toBe(undefined)
     })
 
+    it('should return signature pad data', async () => {
+        const wrapper = shallowMount(VSignature)
+
+        // TODO: Test createObjectURL and Blob
+        // global.URL.createObjectURL = jest.fn()
+        // global.URL.revokeObjectURL = jest.fn()
+        // @ts-ignore
+        // global.Blob = function (content, options){return  ({content, options})}
+
+        // wrapper.setData({
+        //     history: [pointsMockData],
+        //     historyStep: 1,
+        //     points: emptyPointsMockData
+        // })
+
+        // await expect(wrapper.vm.toDataURL()).resolves.toBe(mockDataURL)
+    })
+
     it('should clear signature', () => {
         const wrapper = shallowMount(VSignature)
 
@@ -46,7 +64,7 @@ describe('VSignature', () => {
 
         expect(wrapper.vm.history).toEqual([emptyPointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
-        expect(wrapper.vm.points).toEqual(wrapper.vm.history[0])
+        expect(wrapper.vm.points).toEqual(emptyPointsMockData)
     })
 
     it('should undo signature', () => {
@@ -63,7 +81,7 @@ describe('VSignature', () => {
         expect(wrapper.vm.points).toEqual(emptyPointsMockData)
         expect(wrapper.vm.history).toEqual([emptyPointsMockData, pointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
-    });
+    })
 
     it('should redo signature', () => {
         const wrapper = shallowMount(VSignature)
@@ -81,7 +99,7 @@ describe('VSignature', () => {
         expect(wrapper.vm.historyStep).toBe(1)
     })
 
-    it('should return empty status', () => {
+    it('should return signature pad empty status', () => {
         const wrapper = shallowMount(VSignature)
         
         expect(wrapper.vm.isEmpty()).toBe(true)
