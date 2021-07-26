@@ -1,4 +1,4 @@
-export const initialPointsMockData = {
+export const emptyPointsMockData = {
     allPoints: [],
     currentPoints: null
 }

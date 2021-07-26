@@ -1,11 +1,12 @@
 import VSignature from '../VSignature'
 import { shallowMount } from '@vue/test-utils'
 
-import { pointsMockData, initialPointsMockData } from './mock'
+import { pointsMockData, emptyPointsMockData } from './mock'
 
 describe('VSignature', () => {
     it('should receive default props', () => {
         const wrapper = shallowMount(VSignature)
+
         const expectedWidth = '100%'
         const expectedHeight = '100%'
         const expectedPenColor = '#000'
@@ -22,16 +23,16 @@ describe('VSignature', () => {
     })
 
     it('should throw incorrect image error message', async () => {
-        const wrapper = shallowMount(VSignature);
+        const wrapper = shallowMount(VSignature)
 
         await expect(wrapper.vm.toDataURL('text/html')).rejects.toThrow('Incorrect image type!')
-    });
+    })
 
     it('should return undefined', async () => {
         const wrapper = shallowMount(VSignature)
 
         await expect(wrapper.vm.toDataURL()).resolves.toBe(undefined)
-    });
+    })
 
     it('should clear signature', () => {
         const wrapper = shallowMount(VSignature)
@@ -39,14 +40,14 @@ describe('VSignature', () => {
         wrapper.setData({
             history: [pointsMockData],
             historyStep: 1,
-            points: initialPointsMockData
+            points: emptyPointsMockData
         })
         wrapper.vm.clear()
 
-        expect(wrapper.vm.history).toEqual([initialPointsMockData])
+        expect(wrapper.vm.history).toEqual([emptyPointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
         expect(wrapper.vm.points).toEqual(wrapper.vm.history[0])
-    });
+    })
 
     it('should undo signature', () => {
         const wrapper = shallowMount(VSignature)
@@ -54,13 +55,13 @@ describe('VSignature', () => {
         wrapper.setData({
             history: [pointsMockData],
             historyStep: 1,
-            points: initialPointsMockData
+            points: emptyPointsMockData
         })
 
         wrapper.vm.undo()
 
-        expect(wrapper.vm.points).toEqual(initialPointsMockData)
-        expect(wrapper.vm.history).toEqual([initialPointsMockData, pointsMockData])
+        expect(wrapper.vm.points).toEqual(emptyPointsMockData)
+        expect(wrapper.vm.history).toEqual([emptyPointsMockData, pointsMockData])
         expect(wrapper.vm.historyStep).toBe(0)
     });
 
@@ -70,13 +71,13 @@ describe('VSignature', () => {
         wrapper.setData({
             history: [pointsMockData],
             historyStep: 0,
-            points: initialPointsMockData
+            points: emptyPointsMockData
         })
 
         wrapper.vm.redo()
 
         expect(wrapper.vm.points).toEqual(pointsMockData)
-        expect(wrapper.vm.history).toEqual([initialPointsMockData, pointsMockData])
+        expect(wrapper.vm.history).toEqual([emptyPointsMockData, pointsMockData])
         expect(wrapper.vm.historyStep).toBe(1)
     })
 
