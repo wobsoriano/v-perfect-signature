@@ -37,8 +37,9 @@ describe('VSignature', () => {
     it('should return signature pad data', async () => {
         const wrapper = shallowMount(VSignature)
 
-        // TODO: Test createObjectURL and Blob
-        // global.URL.createObjectURL = jest.fn()
+        // TODO: createObjectURL fix
+
+        // global.URL.createObjectURL = jest.fn(() => 'details')
         // global.URL.revokeObjectURL = jest.fn()
         // @ts-ignore
         // global.Blob = function (content, options){return  ({content, options})}
@@ -51,6 +52,9 @@ describe('VSignature', () => {
 
         // await expect(wrapper.vm.toDataURL()).resolves.toBe(mockDataURL)
     })
+
+
+
 
     it('should clear signature', () => {
         const wrapper = shallowMount(VSignature)

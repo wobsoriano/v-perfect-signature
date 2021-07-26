@@ -117,7 +117,7 @@ export default defineComponent({
             this.points = next
         },
         isEmpty() {
-            return this.historyStep === 0
+            return this.history[this.historyStep].allPoints.length === 0
         },
         clear() {
             this.history = convertToNonReactive([initialPointsData])
@@ -127,6 +127,17 @@ export default defineComponent({
         toCanvas() {
             const svgElement = this.$refs.signaturePad as SVGElement
             return svgToCanvas(svgElement)
+        },
+        fromData(data: Point[][]) {
+            this.history = [{
+                allPoints: data,
+                currentPoints: null
+            }]
+            this.historyStep = 0
+            this.points = convertToNonReactive(this.history[this.historyStep])
+        },
+        toData() {
+            return this.history[this.historyStep].allPoints
         },
         async toDataURL(type?: string) {
             if (type && !IMAGE_TYPES.includes(type)) {

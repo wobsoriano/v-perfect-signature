@@ -2,12 +2,12 @@ export default async function svgToCanvas(svgElement: SVGElement): Promise<HTMLC
     return new Promise((resolve, reject) => {
         const { width, height } = svgElement.getBoundingClientRect();
         const blob = new Blob([svgElement.outerHTML], { type:'image/svg+xml' })
-        const blobURL = URL.createObjectURL(blob)
+        const blobURL = window.URL.createObjectURL(blob)
         
         const image = new Image()
         
         image.onload = () => {
-            URL.revokeObjectURL(blobURL)
+            window.URL.revokeObjectURL(blobURL)
             const canvas = document.createElement('canvas')
             canvas.width = width
             canvas.height = height
@@ -17,7 +17,6 @@ export default async function svgToCanvas(svgElement: SVGElement): Promise<HTMLC
         }
         
         image.onerror = () => {
-            console.log('error')
             reject('Unable to convert svg to canvas')
         }
 
