@@ -64,6 +64,23 @@ describe('VSignature', () => {
         expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
     })
 
+    it('should set signature from array of input points', () => {
+        const wrapper = shallowMount(VSignature)
+
+        // @ts-ignore
+        wrapper.vm.fromData(pointsMockData.allPoints)
+
+        expect(wrapper.vm.history).toEqual([{
+            allPoints: pointsMockData.allPoints,
+            currentPoints: null
+        }])
+        expect(wrapper.vm.historyStep).toBe(0)
+        expect(wrapper.vm.points).toEqual({
+            allPoints: pointsMockData.allPoints,
+            currentPoints: null
+        })
+    })
+
     it('should clear signature', () => {
         const wrapper = shallowMount(VSignature)
 
