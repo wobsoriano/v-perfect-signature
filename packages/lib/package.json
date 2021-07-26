@@ -1,5 +1,5 @@
 {
-  "name": "v-signature",
+  "name": "v-signature-pad",
   "description": "TO-DO",
   "keywords": [
     "vue",
@@ -8,9 +8,9 @@
   ],
   "license": "MIT",
   "version": "0.0.1",
-  "module": "dist/v-signature.esm.js",
-  "main": "dist/v-signature.cjs.js",
-  "unpkg": "dist/v-signature.global.js",
+  "module": "dist/v-signature-pad.esm.js",
+  "main": "dist/v-signature-pad.cjs.js",
+  "unpkg": "dist/v-signature-pad.global.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
@@ -51,7 +51,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wobsoriano/v-signature.git"
+    "url": "git+https://github.com/wobsoriano/v-signature-pad.git"
   },
-  "homepage": "https://github.com/wobsoriano/v-signature#readme"
+  "homepage": "https://github.com/wobsoriano/v-signature-pad#readme"
 }

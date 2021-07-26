@@ -6,8 +6,8 @@
     ],
     "scripts": {
       "dev": "yarn workspace example dev",
-      "lib:watch": "yarn workspace v-signature run build:watch",
-      "lib": "yarn workspace v-signature",
+      "lib:watch": "yarn workspace v-signature-pad run build:watch",
+      "lib": "yarn workspace v-signature-pad",
       "example": "yarn workspace example"
     }
 }

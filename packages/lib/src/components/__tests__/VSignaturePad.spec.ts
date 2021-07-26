@@ -1,11 +1,11 @@
-import VSignature from '../VSignature'
+import VSignaturePad from '../VSignaturePad'
 import { shallowMount } from '@vue/test-utils'
 
 import { pointsMockData, emptyPointsMockData, mockDataURL } from './mock'
 
-describe('VSignature', () => {
+describe('VSignaturePad', () => {
     it('should receive default props', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         const expectedWidth = '100%'
         const expectedHeight = '100%'
@@ -23,19 +23,19 @@ describe('VSignature', () => {
     })
 
     it('should throw incorrect image error message', async () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         await expect(wrapper.vm.toDataURL('text/html')).rejects.toThrow('Incorrect image type!')
     })
 
     it('should return undefined on empty signature', async () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         await expect(wrapper.vm.toDataURL()).resolves.toBeUndefined()
     })
 
     it('should return signature pad data', async () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         // TODO: createObjectURL fix
 
@@ -54,7 +54,7 @@ describe('VSignature', () => {
     })
 
     it('should return array of input points', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
         
         wrapper.setData({
             history: [pointsMockData],
@@ -65,7 +65,7 @@ describe('VSignature', () => {
     })
 
     it('should set signature from array of input points', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         // @ts-ignore
         expect(wrapper.vm.fromData(pointsMockData.allPoints)).toBeUndefined()
@@ -73,7 +73,7 @@ describe('VSignature', () => {
     })
 
     it('should clear signature', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         wrapper.setData({
             history: [pointsMockData],
@@ -86,7 +86,7 @@ describe('VSignature', () => {
     })
 
     it('should undo draw action', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         wrapper.setData({
             history: [pointsMockData],
@@ -99,7 +99,7 @@ describe('VSignature', () => {
     })
 
     it('should redo draw action', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
 
         wrapper.setData({
             history: [pointsMockData],
@@ -112,7 +112,7 @@ describe('VSignature', () => {
     })
 
     it('should return signature pad empty status', () => {
-        const wrapper = shallowMount(VSignature)
+        const wrapper = shallowMount(VSignaturePad)
         
         expect(wrapper.vm.isEmpty()).toBeTruthy()
     })

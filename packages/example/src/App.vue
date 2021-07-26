@@ -1,5 +1,5 @@
 <template>
-  <VSignature
+  <VSignaturePad
     :stroke-options="strokeOptions"
     height="500"
     width="500"
@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import VSignature from 'v-signature'
+import VSignaturePad from 'v-signature-pad'
 
 const testData = [
     [
@@ -264,7 +264,7 @@ const testData = [
 export default defineComponent({
   name: 'App',
   components: {
-    VSignature
+    VSignaturePad
   },
   data: () => ({
     strokeOptions: {
