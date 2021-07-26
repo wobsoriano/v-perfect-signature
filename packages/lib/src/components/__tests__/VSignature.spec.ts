@@ -68,17 +68,8 @@ describe('VSignature', () => {
         const wrapper = shallowMount(VSignature)
 
         // @ts-ignore
-        wrapper.vm.fromData(pointsMockData.allPoints)
-
-        expect(wrapper.vm.history).toEqual([{
-            allPoints: pointsMockData.allPoints,
-            currentPoints: null
-        }])
-        expect(wrapper.vm.historyStep).toBe(0)
-        expect(wrapper.vm.points).toEqual({
-            allPoints: pointsMockData.allPoints,
-            currentPoints: null
-        })
+        expect(wrapper.vm.fromData(pointsMockData.allPoints)).toBeUndefined()
+        expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
     })
 
     it('should clear signature', () => {
@@ -91,9 +82,7 @@ describe('VSignature', () => {
         })
         wrapper.vm.clear()
 
-        expect(wrapper.vm.history).toEqual([emptyPointsMockData])
-        expect(wrapper.vm.historyStep).toBe(0)
-        expect(wrapper.vm.points).toEqual(emptyPointsMockData)
+        expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
     })
 
     it('should undo signature', () => {
@@ -104,12 +93,9 @@ describe('VSignature', () => {
             historyStep: 1,
             points: emptyPointsMockData
         })
-
         wrapper.vm.undo()
 
-        expect(wrapper.vm.points).toEqual(emptyPointsMockData)
-        expect(wrapper.vm.history).toEqual([emptyPointsMockData, pointsMockData])
-        expect(wrapper.vm.historyStep).toBe(0)
+        expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
     })
 
     it('should redo signature', () => {
@@ -120,17 +106,14 @@ describe('VSignature', () => {
             historyStep: 0,
             points: emptyPointsMockData
         })
-
         wrapper.vm.redo()
 
-        expect(wrapper.vm.points).toEqual(pointsMockData)
-        expect(wrapper.vm.history).toEqual([emptyPointsMockData, pointsMockData])
-        expect(wrapper.vm.historyStep).toBe(1)
+        expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
     })
 
     it('should return signature pad empty status', () => {
         const wrapper = shallowMount(VSignature)
         
-        expect(wrapper.vm.isEmpty()).toBe(true)
+        expect(wrapper.vm.isEmpty()).toBeTruthy()
     })
 })
