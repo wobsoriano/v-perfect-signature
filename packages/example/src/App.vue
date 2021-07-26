@@ -1,8 +1,8 @@
 <template>
   <VSignaturePad
     :stroke-options="strokeOptions"
-    height="500"
-    width="500"
+    height="500px"
+    width="500px"
     ref="canvas"
   />
   <button @click="clear">clear</button>
@@ -270,7 +270,7 @@ export default defineComponent({
   },
   data: () => ({
     strokeOptions: {
-      size: 5
+      size: 8
     }
   }),
   mounted() {
@@ -282,10 +282,10 @@ export default defineComponent({
       // const data = await this.$refs.canvas.toDataURL()
       // console.log(data)
       // this.$refs.canvas.toDataURL()
-    //   this.$refs.canvas.fromDataURL(svg)
+      this.$refs.canvas.fromDataURL(svg)
       // const data = this.$refs.canvas.toData()
       // console.log(JSON.parse(JSON.stringify(data)))
-      this.$refs.canvas.fromData(testData)
+    //   this.$refs.canvas.fromData(testData)
     },
     undo() {
       this.$refs.canvas.undo()

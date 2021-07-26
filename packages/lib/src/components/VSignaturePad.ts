@@ -5,7 +5,6 @@ import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
 import svgToCanvas from '../utils/svg-to-canvas'
 import convertToNonReactive from '../utils/convert-to-non-reactive'
-import parseHTML from '../utils/parse-html-string'
 import {
     DEFAULT_BACKGROUND_COLOR,
     DEFAULT_PEN_COLOR,
@@ -143,28 +142,10 @@ export default defineComponent({
             this.history = [...this.history, { ...newHistoryRecord }]
             this.historyStep += 1
         },
-        fromDataURL(dataURI: string) {
-            if (!dataURI || !dataURI.includes('data:image/svg+xml')) {
-                throw new Error('Incorrect type. Only image/svg+xml is allowed.')
-            }
-
-            // TODO: atob is deprecated, replace with newer solution
-            const data = atob(dataURI.replace(/data:image\/svg\+xml;base64,/, ''))
-
-            // Replace contents of svg.
-            // This does not update data. Thus, fromDataURL
-            // won't work properly.
-            const svg = this.$refs.signaturePad as SVGElement
-            const group = svg.querySelector('g')
-            const newSvg = parseHTML(data)
-            newSvg.querySelectorAll('path').forEach((path) => {
-                group?.appendChild(path)
-            })
-        },
         toData() {
             return this.history[this.historyStep].allPoints
         },
-        async toDataURL(type: string = 'image/svg+xml') {
+        async toDataURL(type?: string) {
             if (type && !IMAGE_TYPES.includes(type)) {
                 throw new Error('Incorrect image type!')
             }
@@ -175,35 +156,84 @@ export default defineComponent({
 
             const svgElement = this.$refs.signaturePad as SVGElement
             const canvas = await svgToCanvas(svgElement)
-            return canvas.toDataURL(type)
+            return canvas.toDataURL(type ?? 'image/png')
+        },
+        getCanvasElement() {
+            return this.$refs.signaturePad as HTMLCanvasElement
+        },
+        getCanvasContext() {
+            const canvas = this.getCanvasElement()
+            return canvas.getContext('2d')
+        },
+        setBackgroundColor() {
+            const canvas = this.getCanvasElement()
+            const ctx = canvas.getContext('2d')
+            ctx!.fillStyle = this.backgroundColor
+            ctx?.fillRect(0, 0, canvas.width, canvas.height)
+            ctx!.fillStyle = this.penColor
+        },
+        resizeCanvas() {
+            const canvas = this.getCanvasElement()
+            const rect = canvas.getBoundingClientRect()
+            const ratio =  window.devicePixelRatio || 1
+            canvas.width = rect.width * ratio;
+            canvas.height = rect.height * ratio;
+            canvas?.getContext('2d')?.scale(ratio, ratio)
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            this.clear()
+            this.setBackgroundColor()
         }
     },
-    computed: {
-        paths(): string[] {
-            return this.points.allPoints.map((point: Point[]) => {
-                return getSvgPathFromStroke(getStroke(point, this.strokeOptions))
-            })
+    mounted() {
+        window.addEventListener("resize", this.resizeCanvas, false);
+        this.resizeCanvas()
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.resizeCanvas, false)
+    },
+    watch: {
+        backgroundColor() {
+            this.setBackgroundColor()
         },
-        currentPath(): null | string {
-            if (!this.points.currentPoints) return null
-            return getSvgPathFromStroke(getStroke(this.points.currentPoints, this.strokeOptions))
+        penColor(color: string) {
+            const ctx = this.getCanvasContext()
+            ctx!.fillStyle = color
         },
+        'points.allPoints': {
+            deep: true,
+            handler(allPoints: PointsData['allPoints']) {
+                allPoints.forEach((point: Point[]) => {
+                    const pathData = getSvgPathFromStroke(getStroke(point, this.strokeOptions))
+                    const myPath = new Path2D(pathData)
+                    const ctx = this.getCanvasContext()
+                    ctx?.fill(myPath)
+                })
+            }
+        },
+        'points.currentPoints': {
+            deep: true,
+            handler(currentPoints: PointsData['currentPoints']) {
+                if (!currentPoints) return
+                const pathData = getSvgPathFromStroke(getStroke(currentPoints, this.strokeOptions))
+                const myPath = new Path2D(pathData)
+                const ctx = this.getCanvasContext()
+                ctx?.fill(myPath)
+            }
+        }  
     },
     render() {
         const {
             width,
             height,
-            backgroundColor,
             customStyle
         } = this
 
-        return h('svg', {
+        return h('canvas', {
             ref: 'signaturePad',
-            xmlns: 'http://www.w3.org/2000/svg',
             style: {
                 height,
                 width,
-                backgroundColor,
                 ...customStyle
             },
             on: {
@@ -213,14 +243,6 @@ export default defineComponent({
                 pointerenter: this.handlePointerEnter,
                 pointerleave: this.handlePointerLeave
             }
-        }, [
-            h('g', {
-                stroke: this.penColor,
-                fill: this.penColor
-            }, [
-                ...this.paths.map((path) => h('path', { d: path })),
-                this.currentPath ? h('path', { d: this.currentPath }) : []
-            ])
-        ])
+        })
     }
 })
