@@ -61,10 +61,12 @@ Name | Argument Type | Description |
 `toDataURL` | `String` | Returns signature image as data URL |
 `fromDataURL` | `String` | Draws signature image from data URL |
 `toData` | - | Returns signature image as an array of array of input points |
-`fromData` | `Array` | Draws signature image from array of array of input points  |
+`fromData` | `Array` | Draws signature image from array of array of input points |
 `clear` | - | Clears the canvas |
 `isEmpty` | - | Returns true if canvas is empty |
 `resizeCanvas` | `Boolean` | Resize the canvas based on `window.devicePixelRatio` |
+
+Note: `fromData` does not populate internal data structure. Thus, after using `fromDataURL` and `toData` won't work properly.
 
 ## Events
 
