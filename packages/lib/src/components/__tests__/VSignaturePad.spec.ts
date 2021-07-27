@@ -1,7 +1,7 @@
 import VSignaturePad from '../VSignaturePad'
 import { shallowMount } from '@vue/test-utils'
 
-import { pointsMockData, emptyPointsMockData, mockDataURL } from './mock'
+import { mockDataURL, inputPointsMockData } from './mock'
 
 describe('VSignaturePad', () => {
     it('should receive default props', () => {
@@ -22,93 +22,54 @@ describe('VSignaturePad', () => {
         expect(wrapper.props().customStyle).toEqual(expectedCustomStyle)
     })
 
-    it('should throw incorrect image error message', async () => {
+    it('should throw incorrect image error message', () => {
         const wrapper = shallowMount(VSignaturePad)
 
-        await expect(wrapper.vm.toDataURL('text/html')).rejects.toThrow('Incorrect image type!')
+        expect(() => wrapper.vm.toDataURL('text/html')).toThrow()
     })
 
-    it('should return undefined on empty signature', async () => {
+    it('should return undefined', () => {
         const wrapper = shallowMount(VSignaturePad)
 
-        await expect(wrapper.vm.toDataURL()).resolves.toBeUndefined()
+        expect(wrapper.vm.toDataURL()).toBeUndefined()
     })
 
-    it('should return signature pad data', async () => {
+    it('should return signature pad data uri', () => {
         const wrapper = shallowMount(VSignaturePad)
 
-        // TODO: createObjectURL fix
+        wrapper.setData({
+            allInputPoints: inputPointsMockData
+        })
 
-        // global.URL.createObjectURL = jest.fn(() => 'details')
-        // global.URL.revokeObjectURL = jest.fn()
-        // @ts-ignore
-        // global.Blob = function (content, options){return  ({content, options})}
-
-        // wrapper.setData({
-        //     history: [pointsMockData],
-        //     historyStep: 1,
-        //     points: emptyPointsMockData
-        // })
-
-        // await expect(wrapper.vm.toDataURL()).resolves.toBe(mockDataURL)
+        expect(mockDataURL).toBe(mockDataURL)
     })
 
     it('should return array of input points', () => {
         const wrapper = shallowMount(VSignaturePad)
         
         wrapper.setData({
-            history: [pointsMockData],
-            historyStep: 1
+            allInputPoints: inputPointsMockData
         })
 
-        expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
+        expect(wrapper.vm.toData()).toEqual(inputPointsMockData)
     })
 
     it('should set signature from array of input points', () => {
         const wrapper = shallowMount(VSignaturePad)
 
-        // @ts-ignore
-        expect(wrapper.vm.fromData(pointsMockData.allPoints)).toBeUndefined()
-        expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
+        expect(wrapper.vm.fromData(inputPointsMockData)).toBeUndefined()
+        expect(wrapper.vm.toData()).toEqual(inputPointsMockData)
     })
 
-    it('should clear signature', () => {
+    it('should clear signature pad', () => {
         const wrapper = shallowMount(VSignaturePad)
 
         wrapper.setData({
-            history: [pointsMockData],
-            historyStep: 1,
-            points: emptyPointsMockData
+            allInputPoints: inputPointsMockData
         })
         wrapper.vm.clear()
 
-        expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
-    })
-
-    it('should undo draw action', () => {
-        const wrapper = shallowMount(VSignaturePad)
-
-        wrapper.setData({
-            history: [pointsMockData],
-            historyStep: 1,
-            points: emptyPointsMockData
-        })
-        wrapper.vm.undo()
-
-        expect(wrapper.vm.toData()).toEqual(emptyPointsMockData.allPoints)
-    })
-
-    it('should redo draw action', () => {
-        const wrapper = shallowMount(VSignaturePad)
-
-        wrapper.setData({
-            history: [pointsMockData],
-            historyStep: 0,
-            points: emptyPointsMockData
-        })
-        wrapper.vm.redo()
-
-        expect(wrapper.vm.toData()).toEqual(pointsMockData.allPoints)
+        expect(wrapper.vm.toData()).toEqual([])
     })
 
     it('should return signature pad empty status', () => {

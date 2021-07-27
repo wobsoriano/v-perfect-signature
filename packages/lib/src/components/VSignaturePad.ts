@@ -95,22 +95,20 @@ export default defineComponent({
             this.currentInputPoints = null
         },
         fromData(data: InputPoints[][]) {
-            this.allInputPoints = data
+            this.allInputPoints = [...this.allInputPoints, ...data]
         },
         toData() {
             return this.allInputPoints
         },
-        toDataURL(type: string = 'image/png') {
-            if (!IMAGE_TYPES.includes(type)) {
-                throw new Error('Incorrect image type!')
+        toDataURL(type?: string) {
+            if (type && !IMAGE_TYPES.includes(type)) {
+                throw new Error(`Incorrect image type. Must be one of ${IMAGE_TYPES.join(', ')}.`)
             }
 
-            if (this.isEmpty()) {
-                return
-            }
+            if (this.isEmpty()) return
 
             const canvas = this.getCanvasElement()
-            return canvas.toDataURL(type)
+            return canvas.toDataURL(type ?? 'image/png')
         },
         getCanvasElement() {
             return this.$refs.signaturePad as HTMLCanvasElement
@@ -122,7 +120,7 @@ export default defineComponent({
             ctx?.fillRect(0, 0, canvas.width, canvas.height)
             ctx!.fillStyle = this.penColor
         },
-        resizeCanvas() {
+        resizeCanvas(clearCanvas = true) {
             const canvas = this.getCanvasElement()
             const rect = canvas.getBoundingClientRect()
             const dpr =  window.devicePixelRatio || 1
@@ -135,7 +133,9 @@ export default defineComponent({
             canvas.style.width = rect.width + 'px'
             canvas.style.height = rect.height + 'px'
 
-            this.clear()
+            if (clearCanvas) {
+                this.clear()
+            }
             this.setBackgroundAndPenColor()
         },
         inputPointsHandler() {
@@ -158,11 +158,7 @@ export default defineComponent({
         }
     },
     mounted() {
-        window.addEventListener('resize', this.resizeCanvas, false);
         this.resizeCanvas()
-    },
-    beforeUnmount() {
-        window.removeEventListener('resize', this.resizeCanvas, false)
     },
     watch: {
         backgroundColor() {
