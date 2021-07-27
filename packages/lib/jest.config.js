@@ -12,5 +12,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFiles: [
     'jest-canvas-mock'
-  ]
+  ],
+  testEnvironmentOptions: {
+    resources: 'usable'
+  }
 }

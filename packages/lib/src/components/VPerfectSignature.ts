@@ -103,21 +103,24 @@ export default defineComponent({
             return this.allInputPoints
         },
         fromDataURL(data: string) {
-            const image = new Image()
+            return new Promise((resolve, reject) => {
+                const image = new Image()
 
-            image.onload = () => {
-                const canvas = this.getCanvasElement()
-                const ctx = canvas.getContext('2d')
-                ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
-                this.cachedImages.push(image)
-            }
+                image.onload = () => {
+                    const canvas = this.getCanvasElement()
+                    const ctx = canvas.getContext('2d')
+                    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
+                    this.cachedImages.push(image)
+                    resolve(true)
+                }
 
-            image.onerror = () => {
-                throw new Error('Invalid data uri')
-            }
+                image.onerror = () => {
+                    reject('Incorrect data uri')
+                }
 
-            image.crossOrigin = 'anonymous'
-            image.src = data
+                image.crossOrigin = 'anonymous'
+                image.src = data
+            })
         },
         toDataURL(type?: string) {
             if (type && !IMAGE_TYPES.includes(type)) {
@@ -161,9 +164,9 @@ export default defineComponent({
             const canvas = this.getCanvasElement()
             const ctx = canvas.getContext('2d')
 
-            // Smooth lines
+            // Makes smooth lines
             ctx?.clearRect(0, 0, canvas.width, canvas.height)
-            // Redraw images from data url
+
             this.cachedImages.forEach((image) => ctx?.drawImage(image, 0, 0, canvas.width, canvas.height))
             this.setBackgroundAndPenColor()
 

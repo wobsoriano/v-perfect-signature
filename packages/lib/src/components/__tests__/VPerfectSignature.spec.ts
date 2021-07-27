@@ -3,7 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import { mockDataURL, inputPointsMockData } from './mock'
 import VPerfectSignature from '../VPerfectSignature'
 
-describe('VPerfectSignature', () => {
+describe('#props', () => {
     it('should receive default props', () => {
         const wrapper = shallowMount(VPerfectSignature)
 
@@ -20,31 +20,53 @@ describe('VPerfectSignature', () => {
         expect(wrapper.props().backgroundColor).toBe(expectedBackgroundColor)
         expect(wrapper.props().strokeOptions).toEqual(expectedStrokeOptions)
         expect(wrapper.props().customStyle).toEqual(expectedCustomStyle)
-    })
+    })   
+})
 
-    it('should throw incorrect image error message', () => {
+describe('#toDataURL', () => {
+    it('throws error if invalid type', () => {
         const wrapper = shallowMount(VPerfectSignature)
 
         expect(() => wrapper.vm.toDataURL('text/html')).toThrow()
     })
 
-    it('should return undefined', () => {
+    it('returns undefined if pad is empty', () => {
         const wrapper = shallowMount(VPerfectSignature)
 
         expect(wrapper.vm.toDataURL()).toBeUndefined()
     })
 
-    it('should return data uri', () => {
+    // TODO: Returns incorrect data url. Bug?
+    // it('should return data uri', () => {
+    //     const wrapper = shallowMount(VPerfectSignature)
+
+    //     wrapper.setData({
+    //         allInputPoints: inputPointsMockData
+    //     })
+
+        
+    //     expect(wrapper.vm.toDataURL()).toBe(mockDataURL)
+    // })
+})
+
+describe('#fromDataURL', () => {
+    it('should set signature from data uri', async () => {
         const wrapper = shallowMount(VPerfectSignature)
 
-        wrapper.setData({
-            allInputPoints: inputPointsMockData
-        })
-
-        expect(mockDataURL).toBe(mockDataURL)
+        await expect(wrapper.vm.fromDataURL(mockDataURL)).resolves.toBe(true)
     })
 
-    it('should return array of input points', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    it('fails if data uri is incorrect', async () => {
+        const wrapper = shallowMount(VPerfectSignature)
+
+        await expect(wrapper.vm.fromDataURL('random string')).rejects.toBe('Incorrect data uri')
+    })  
+})
+
+describe('#toData', () => {
+    it('returns array of array input points', () => {
         const wrapper = shallowMount(VPerfectSignature)
         
         wrapper.setData({
@@ -54,14 +76,16 @@ describe('VPerfectSignature', () => {
         expect(wrapper.vm.toData()).toEqual(inputPointsMockData)
     })
 
-    it('should set signature from array of input points', () => {
+    it('should set signature from array of array of input points', () => {
         const wrapper = shallowMount(VPerfectSignature)
 
         expect(wrapper.vm.fromData(inputPointsMockData)).toBeUndefined()
         expect(wrapper.vm.toData()).toEqual(inputPointsMockData)
     })
+})
 
-    it('should clear signature pad', () => {
+describe('#clear', () => {
+    it('clears data structures and pad', () => {
         const wrapper = shallowMount(VPerfectSignature)
 
         wrapper.setData({
@@ -71,10 +95,22 @@ describe('VPerfectSignature', () => {
 
         expect(wrapper.vm.toData()).toEqual([])
     })
+})
 
-    it('should return signature pad empty status', () => {
+describe('#isEmpty', () => {
+    it('returns true if pad is empty', () => {
         const wrapper = shallowMount(VPerfectSignature)
         
-        expect(wrapper.vm.isEmpty()).toBeTruthy()
+        expect(wrapper.vm.isEmpty()).toBe(true)
+    })
+
+    it('returns false if pad is not empty', () => {
+        const wrapper = shallowMount(VPerfectSignature)
+        
+        wrapper.setData({
+            allInputPoints: inputPointsMockData
+        })
+        
+        expect(wrapper.vm.isEmpty()).toBe(false)
     })
 })
