@@ -15,12 +15,12 @@ import {
 type InputPoints = number[]
 
 interface PointsData {
-    allPoints: InputPoints[][]
-    currentPoints: InputPoints[] | null
+    allInputPoints: InputPoints[][]
+    currentInputPoints: InputPoints[] | null
 }
 const initialPointsData: PointsData = {
-    allPoints: [],
-    currentPoints: null
+    allInputPoints: [],
+    currentInputPoints: null
 }
 
 export default defineComponent({
@@ -66,7 +66,7 @@ export default defineComponent({
     methods: {
         handlePointerDown(e: PointerEvent) {
             e.preventDefault()
-            this.points.currentPoints = [[e.pageX, e.pageY, e.pressure]]
+            this.points.currentInputPoints = [[e.pageX, e.pageY, e.pressure]]
             this.isDrawing = true
             this.$emit('onBegin', e)
         },
@@ -75,18 +75,18 @@ export default defineComponent({
 
             if (e.buttons === 1) {
                 e.preventDefault()
-                this.points.currentPoints = [...this.points.currentPoints ?? [], [e.pageX, e.pageY, e.pressure]]
+                this.points.currentInputPoints = [...this.points.currentInputPoints ?? [], [e.pageX, e.pageY, e.pressure]]
             }
         },
         handlePointerUp(e: PointerEvent) {
             e.preventDefault()
             this.isDrawing = false
 
-            if (!this.points.currentPoints) return
+            if (!this.points.currentInputPoints) return
 
             const newHistoryRecord = {
-                allPoints: [...this.points.allPoints, this.points.currentPoints],
-                currentPoints: null
+                allInputPoints: [...this.points.allInputPoints, this.points.currentInputPoints],
+                currentInputPoints: null
             }
 
             this.points = { ...newHistoryRecord }
@@ -110,21 +110,21 @@ export default defineComponent({
             return this.historyStep !== this.history.length - 1
         },
         undo() {
-            if (this.canUndo()) {
-                this.historyStep -= 1
-                const previous = convertToNonReactive<PointsData>(this.history[this.historyStep])
-                this.points = previous
+            if (!this.canUndo()) {
+                return
             }
+            this.historyStep -= 1
+            this.points = convertToNonReactive<PointsData>(this.history[this.historyStep])
         },
         redo() {
-            if (this.canRedo()) {
-                this.historyStep += 1
-                const next = convertToNonReactive<PointsData>(this.history[this.historyStep])
-                this.points = next
+            if (!this.canRedo()) {
+                return
             }
+            this.historyStep += 1
+            this.points = convertToNonReactive<PointsData>(this.history[this.historyStep])
         },
         isEmpty() {
-            return this.history[this.historyStep].allPoints.length === 0
+            return this.history[this.historyStep].allInputPoints.length === 0
         },
         clear() {
             this.history = convertToNonReactive([initialPointsData])
@@ -133,8 +133,8 @@ export default defineComponent({
         },
         fromData(data: InputPoints[][]) {
             const newHistoryRecord: PointsData = {
-                allPoints: [...this.points.allPoints, ...data],
-                currentPoints: null
+                allInputPoints: [...this.points.allInputPoints, ...data],
+                currentInputPoints: null
             }
 
             this.points = { ...newHistoryRecord }
@@ -142,9 +142,9 @@ export default defineComponent({
             this.historyStep += 1
         },
         toData() {
-            return this.history[this.historyStep].allPoints
+            return this.history[this.historyStep].allInputPoints
         },
-        async toDataURL(type: string = 'image/png') {
+        toDataURL(type: string = 'image/png') {
             if (!IMAGE_TYPES.includes(type)) {
                 throw new Error('Incorrect image type!')
             }
@@ -163,17 +163,22 @@ export default defineComponent({
             const canvas = this.getCanvasElement()
             return canvas.getContext('2d')
         },
-        setBackgroundColor() {
+        setBackgroundAndPenColor() {
             const canvas = this.getCanvasElement()
             const ctx = canvas.getContext('2d')
             ctx!.fillStyle = this.backgroundColor
             ctx?.fillRect(0, 0, canvas.width, canvas.height)
             ctx!.fillStyle = this.penColor
         },
+        clearCanvas() {
+            const canvas = this.getCanvasElement()
+            const ctx = canvas.getContext('2d')
+            ctx?.clearRect(0,0,canvas.width,canvas.height)  
+        },
         resizeCanvas() {
             const canvas = this.getCanvasElement()
             const rect = canvas.getBoundingClientRect()
-            const dpr =  2 //window.devicePixelRatio || 1
+            const dpr =  window.devicePixelRatio || 1
 
             canvas.width = rect.width * dpr
             canvas.height = rect.height * dpr
@@ -184,7 +189,7 @@ export default defineComponent({
             canvas.style.height = rect.height + 'px'
 
             this.clear()
-            this.setBackgroundColor()
+            this.setBackgroundAndPenColor()
         }
     },
     mounted() {
@@ -196,33 +201,34 @@ export default defineComponent({
     },
     watch: {
         backgroundColor() {
-            this.setBackgroundColor()
+            this.setBackgroundAndPenColor()
         },
         penColor(color: string) {
             const ctx = this.getCanvasContext()
             ctx!.fillStyle = color
         },
-        'points.allPoints': {
+        points: {
             deep: true,
-            handler(allPoints: PointsData['allPoints']) {
-                allPoints.forEach((point: InputPoints[]) => {
+            handler({ allInputPoints, currentInputPoints }: PointsData) {
+                // Clear to have smooth lines
+                this.clearCanvas()
+                // Set background 
+                this.setBackgroundAndPenColor()
+
+                allInputPoints.forEach((point: InputPoints[]) => {
                     const pathData = getSvgPathFromStroke(getStroke(point, this.strokeOptions))
                     const myPath = new Path2D(pathData)
                     const ctx = this.getCanvasContext()
                     ctx?.fill(myPath)
                 })
-            }
-        },
-        'points.currentPoints': {
-            deep: true,
-            handler(currentPoints: PointsData['currentPoints']) {
-                if (!currentPoints) return
-                const pathData = getSvgPathFromStroke(getStroke(currentPoints, this.strokeOptions))
+
+                if (!currentInputPoints) return
+                const pathData = getSvgPathFromStroke(getStroke(currentInputPoints, this.strokeOptions))
                 const myPath = new Path2D(pathData)
                 const ctx = this.getCanvasContext()
                 ctx?.fill(myPath)
             }
-        }  
+        }
     },
     render() {
         const {

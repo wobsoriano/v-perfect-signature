@@ -3,9 +3,9 @@
     :stroke-options="strokeOptions"
     ref="canvas"
   />
-  <!-- <button @click="clear">clear</button>
+  <button @click="clear">clear</button>
   <button @click="undo">Undo</button>
-  <button @click="redo">Redo</button> -->
+  <button @click="redo">Redo</button>
 </template>
 
 <script lang="ts">
@@ -268,11 +268,10 @@ export default defineComponent({
   },
   data: () => ({
     strokeOptions: {
-        size: 6,
+        size: 8,
         thinning: 0.5,
         smoothing: 0.5,
         streamline: 0.5,
-        easing: (t: number) => t * (2 - t),
         last: true,
     }
   }),
@@ -285,7 +284,8 @@ export default defineComponent({
       // const data = await this.$refs.canvas.toDataURL()
       // console.log(data)
       // this.$refs.canvas.toDataURL()
-      this.$refs.canvas.fromDataURL(svg)
+      const dataUrl = this.$refs.canvas.toDataURL()
+      console.log(dataUrl)
       // const data = this.$refs.canvas.toData()
       // console.log(JSON.parse(JSON.stringify(data)))
     //   this.$refs.canvas.fromData(testData)
