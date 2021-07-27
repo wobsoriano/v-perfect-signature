@@ -268,8 +268,8 @@ export default defineComponent({
   },
   data: () => ({
     strokeOptions: {
-        size: 8,
-        thinning: 0.5,
+        size: 16,
+        thinning: 0.75,
         smoothing: 0.5,
         streamline: 0.5,
         last: true,

@@ -159,21 +159,12 @@ export default defineComponent({
         getCanvasElement() {
             return this.$refs.signaturePad as HTMLCanvasElement
         },
-        getCanvasContext() {
-            const canvas = this.getCanvasElement()
-            return canvas.getContext('2d')
-        },
         setBackgroundAndPenColor() {
             const canvas = this.getCanvasElement()
             const ctx = canvas.getContext('2d')
             ctx!.fillStyle = this.backgroundColor
             ctx?.fillRect(0, 0, canvas.width, canvas.height)
             ctx!.fillStyle = this.penColor
-        },
-        clearCanvas() {
-            const canvas = this.getCanvasElement()
-            const ctx = canvas.getContext('2d')
-            ctx?.clearRect(0,0,canvas.width,canvas.height)  
         },
         resizeCanvas() {
             const canvas = this.getCanvasElement()
@@ -204,28 +195,29 @@ export default defineComponent({
             this.setBackgroundAndPenColor()
         },
         penColor(color: string) {
-            const ctx = this.getCanvasContext()
+            const canvas = this.getCanvasElement()
+            const ctx = canvas.getContext('2d')
             ctx!.fillStyle = color
         },
         points: {
             deep: true,
             handler({ allInputPoints, currentInputPoints }: PointsData) {
+                const canvas = this.getCanvasElement()
+                const ctx = canvas.getContext('2d')
                 // Clear to have smooth lines
-                this.clearCanvas()
+                ctx?.clearRect(0,0,canvas.width,canvas.height)
                 // Set background 
                 this.setBackgroundAndPenColor()
 
                 allInputPoints.forEach((point: InputPoints[]) => {
                     const pathData = getSvgPathFromStroke(getStroke(point, this.strokeOptions))
                     const myPath = new Path2D(pathData)
-                    const ctx = this.getCanvasContext()
                     ctx?.fill(myPath)
                 })
 
                 if (!currentInputPoints) return
                 const pathData = getSvgPathFromStroke(getStroke(currentInputPoints, this.strokeOptions))
                 const myPath = new Path2D(pathData)
-                const ctx = this.getCanvasContext()
                 ctx?.fill(myPath)
             }
         }
