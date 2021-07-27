@@ -172,14 +172,12 @@ export default defineComponent({
         allInputPoints: {
             deep: true,
             handler() {
-                // @ts-ignore
                 this.inputPointsHandler()
             }
         },
         currentInputPoints: {
             deep: true,
             handler() {
-                // @ts-ignore
                 this.inputPointsHandler()
             }
         }
