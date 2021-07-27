@@ -66,7 +66,7 @@ Name | Argument Type | Description |
 `isEmpty()` | - | Returns true if canvas is empty |
 `resizeCanvas(shouldClear)` | `Boolean` | Resizes and clears the canvas |
 
-Note: `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
+Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
 
 ## Events
 
