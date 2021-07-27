@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils'
 
 import { mockDataURL, inputPointsMockData } from './mock'
-import VSignaturePad from '../VSignaturePad'
+import VPerfectSignature from '../VPerfectSignature'
 
-describe('VSignaturePad', () => {
+describe('VPerfectSignature', () => {
     it('should receive default props', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         const expectedWidth = '100%'
         const expectedHeight = '100%'
@@ -23,19 +23,19 @@ describe('VSignaturePad', () => {
     })
 
     it('should throw incorrect image error message', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         expect(() => wrapper.vm.toDataURL('text/html')).toThrow()
     })
 
     it('should return undefined', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         expect(wrapper.vm.toDataURL()).toBeUndefined()
     })
 
     it('should return data uri', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         wrapper.setData({
             allInputPoints: inputPointsMockData
@@ -45,7 +45,7 @@ describe('VSignaturePad', () => {
     })
 
     it('should return array of input points', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
         
         wrapper.setData({
             allInputPoints: inputPointsMockData
@@ -55,14 +55,14 @@ describe('VSignaturePad', () => {
     })
 
     it('should set signature from array of input points', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         expect(wrapper.vm.fromData(inputPointsMockData)).toBeUndefined()
         expect(wrapper.vm.toData()).toEqual(inputPointsMockData)
     })
 
     it('should clear signature pad', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
 
         wrapper.setData({
             allInputPoints: inputPointsMockData
@@ -73,7 +73,7 @@ describe('VSignaturePad', () => {
     })
 
     it('should return signature pad empty status', () => {
-        const wrapper = shallowMount(VSignaturePad)
+        const wrapper = shallowMount(VPerfectSignature)
         
         expect(wrapper.vm.isEmpty()).toBeTruthy()
     })

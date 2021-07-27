@@ -1,5 +1,5 @@
 <template>
-  <VSignaturePad
+  <VPerfectSignature
     :stroke-options="strokeOptions"
     ref="canvas"
   />
@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import VSignaturePad from 'v-signature-pad'
+import VPerfectSignature from 'v-perfect-signature'
 
 const testData = [
 [

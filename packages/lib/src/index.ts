@@ -2,4 +2,4 @@ export {
     StrokeOptions
 } from 'perfect-freehand'
 
-export { default } from './components/VSignaturePad'
+export { default } from './components/VPerfectSignature'
