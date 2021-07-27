@@ -57,7 +57,7 @@ Name | Type | Default | Description |
 ## Methods
 
 Name | Argument Type | Description |
------- | ------ | ------ | ------ |
+------ | ------ | ------ |
 `toDataURL` | Function | - |
 `fromDataURL` | Function | - |
 `fromData` | Function | - |
