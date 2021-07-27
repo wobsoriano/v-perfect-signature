@@ -58,13 +58,13 @@ Name | Type | Default | Description |
 
 Name | Argument Type | Description |
 ------ | ------ | ------ |
-`toDataURL` | Function | - |
-`fromDataURL` | Function | - |
-`fromData` | Function | - |
-`toData` | Function | - |
-`clear` | Function | - |
-`isEmpty` | Function | - |
-`resizeCanvas` | Function | - |
+`toDataURL` | `String` | Returns signature image as data URL |
+`fromDataURL` | `String` | Draws signature image from data URL |
+`toData` | - | Returns signature image as an array of array of input points |
+`fromData` | `Array` | Draws signature image from array of array of input points  |
+`clear` | - | Clears the canvas |
+`isEmpty` | - | Returns true if canvas is empty |
+`resizeCanvas` | `Boolean` | Resize the canvas based on `window.devicePixelRatio` |
 
 ## Events
 
