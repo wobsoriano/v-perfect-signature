@@ -18,7 +18,7 @@ export default defineComponent({
         allInputPoints: [] as InputPoints[][],
         currentInputPoints: null as InputPoints[] | null,
         isDrawing: false,
-        images: [] as HTMLImageElement[]
+        cachedImages: [] as HTMLImageElement[]
     }),
     emits: ['onBegin', 'onEnd'],
     props: {
@@ -89,9 +89,10 @@ export default defineComponent({
             this.handlePointerUp(e)
         },
         isEmpty() {
-            return this.allInputPoints.length === 0
+            return !this.allInputPoints.length && !this.cachedImages.length
         },
         clear() {
+            this.cachedImages = []
             this.allInputPoints = []
             this.currentInputPoints = null
         },
@@ -108,7 +109,7 @@ export default defineComponent({
                 const canvas = this.getCanvasElement()
                 const ctx = canvas.getContext('2d')
                 ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
-                this.images.push(image)
+                this.cachedImages.push(image)
             }
 
             image.onerror = () => {
@@ -163,7 +164,7 @@ export default defineComponent({
             // Smooth lines
             ctx?.clearRect(0, 0, canvas.width, canvas.height)
             // Redraw images from data url
-            this.images.forEach((image) => ctx?.drawImage(image, 0, 0, canvas.width, canvas.height))
+            this.cachedImages.forEach((image) => ctx?.drawImage(image, 0, 0, canvas.width, canvas.height))
             this.setBackgroundAndPenColor()
 
             this.allInputPoints.forEach((point: InputPoints[]) => {

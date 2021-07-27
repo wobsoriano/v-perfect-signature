@@ -960,7 +960,10 @@ export default defineComponent({
   },
   methods: {
     async clear() {
-    //   this.$refs.canvas.clear()
+        this.$refs.canvas.fromDataURL(dataurl)
+      setTimeout(() => {
+        this.$refs.canvas.clear()
+      }, 3000)
       // console.log(JSON.parse(JSON.stringify(this.$refs.canvas.points)))
       // const data = await this.$refs.canvas.toDataURL()
       // console.log(data)
@@ -969,7 +972,7 @@ export default defineComponent({
     //   console.log(dataUrl)
     //   const data = this.$refs.canvas.toData()
     //   console.log(JSON.parse(JSON.stringify(data)))
-      this.$refs.canvas.fromDataURL(dataurl)
+      
     //   console.log(JSON.parse(JSON.stringify(this.$refs.canvas.toData())))
     //   console.log(this.$refs.canvas.toDataURL())
     }
