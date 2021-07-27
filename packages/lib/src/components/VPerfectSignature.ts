@@ -115,7 +115,7 @@ export default defineComponent({
                 }
 
                 image.onerror = () => {
-                    reject('Incorrect data uri')
+                    reject('Incorrect data uri provided')
                 }
 
                 image.crossOrigin = 'anonymous'

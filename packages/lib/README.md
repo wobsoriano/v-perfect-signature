@@ -1,6 +1,6 @@
 # v-perfect-signature
 
-Perfect pressure-sensitive signature drawing for Vue 2 and 3 built on top of [perfect-freehand](https://github.com/steveruizok/perfect-freehand).
+Pressure-sensitive signature drawing for Vue 2 and 3 built on top of [perfect-freehand](https://github.com/steveruizok/perfect-freehand).
 
 TODO: Add demo link
 
@@ -30,7 +30,7 @@ export default Vue.extend({
         size: 16,
         thinning: 0.75,
         smoothing: 0.5,
-        streamline: 0.5,
+        streamline: 0.5
     } as StrokeOptions
   }),
   methods: {
@@ -58,13 +58,13 @@ Name | Type | Default | Description |
 
 Name | Argument Type | Description |
 ------ | ------ | ------ |
-`toDataURL` | `String` | Returns signature image as data URL |
-`fromDataURL` | `String` | Draws signature image from data URL |
+`toDataURL(type)` | `String` | Returns signature image as data URL |
+`fromDataURL(dataUri)` | `String` | Draws signature image from data URL |
 `toData` | - | Returns signature image as an array of array of input points |
-`fromData` | `Array` | Draws signature image from array of array of input points |
-`clear` | - | Clears the canvas |
-`isEmpty` | - | Returns true if canvas is empty |
-`resizeCanvas` | `Boolean` | Resize the canvas based on `window.devicePixelRatio` |
+`fromData(data)` | `Array` | Draws signature image from array of array of input points |
+`clear()` | - | Clears the canvas |
+`isEmpty()` | - | Returns true if canvas is empty |
+`resizeCanvas(shouldClear)` | `Boolean` | Resize the canvas based on `window.devicePixelRatio` |
 
 Note: `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
 
@@ -77,9 +77,9 @@ Name | Type | Default | Description |
 
 ## Credits
 
-- [perfect-freehand](https://github.com/steveruizok/perfect-freehand)
-- [signature_pad](https://github.com/szimek/signature_pad)
-- [vue-signature-pad](https://github.com/neighborhood999/vue-signature-pad)
+- [perfect-freehand](https://github.com/steveruizok/perfect-freehand) - Draw perfect pressure-sensitive freehand strokes.
+- [signature_pad](https://github.com/szimek/signature_pad) - HTML 5 canvas based smooth signature drawing.
+- [vue-signature-pad](https://github.com/neighborhood999/vue-signature-pad) - Vue wrapper of signature_pad.
 
 ## License
 MIT - Copyright (c) 2021 [Robert Soriano](https://github.com/wobsoriano)
