@@ -58,10 +58,10 @@ Name | Type | Default | Description |
 
 Name | Argument Type | Description |
 ------ | ------ | ------ |
-`toDataURL([type](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL))` | `String` | Returns signature image as data URL |
-`fromDataURL([dataUri](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs))` | `String` | Draws signature image from data URL |
+`toDataURL(type)` | [String](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL) | Returns signature image as data URL |
+`fromDataURL(dataUri)` | [String](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) | Draws signature image from data URL |
 `toData` | - | Returns signature image as an array of array of input points |
-`fromData([data](https://github.com/wobsoriano/v-perfect-signature/blob/master/packages/lib/src/components/__tests__/mock.ts#L1))` | `Array` | Draws signature image from array of array of input points |
+`fromData(data)` | [Array](https://github.com/wobsoriano/v-perfect-signature/blob/master/packages/lib/src/components/__tests__/mock.ts#L1) | Draws signature image from array of array of input points |
 `clear()` | - | Clears the canvas |
 `isEmpty()` | - | Returns true if canvas is empty |
 `resizeCanvas(shouldClear)` | `Boolean` | Resizes and clears the canvas |
