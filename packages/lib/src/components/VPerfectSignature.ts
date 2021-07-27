@@ -46,17 +46,18 @@ export default defineComponent({
             type: Object as PropType<StrokeOptions>,
             required: false,
             default: {}
-        },
-        customStyle: {
-            type: Object,
-            required: false,
-            default: {}
         }
     },
     methods: {
         handlePointerDown(e: PointerEvent) {
             e.preventDefault()
-            this.currentInputPoints = [[e.pageX, e.pageY, e.pressure]]
+
+            const canvas = e.composedPath()[0] as HTMLCanvasElement
+            const rect = canvas.getBoundingClientRect()
+            const x = e.pageX - rect.left
+            const y = e.pageY - rect.top
+
+            this.currentInputPoints = [[x, y, e.pressure]]
             this.isDrawing = true
             this.$emit('onBegin', e)
         },
@@ -65,7 +66,13 @@ export default defineComponent({
 
             if (e.buttons === 1) {
                 e.preventDefault()
-                this.currentInputPoints = [...this.currentInputPoints ?? [], [e.pageX, e.pageY, e.pressure]]
+
+                const canvas = e.composedPath()[0] as HTMLCanvasElement
+                const rect = canvas.getBoundingClientRect()
+                const x = e.pageX - rect.left
+                const y = e.pageY - rect.top
+
+                this.currentInputPoints = [...this.currentInputPoints ?? [], [x, y, e.pressure]]
             }
         },
         handlePointerUp(e: PointerEvent) {
@@ -210,8 +217,7 @@ export default defineComponent({
     render() {
         const {
             width,
-            height,
-            customStyle
+            height
         } = this
 
         return h('canvas', {
@@ -219,9 +225,7 @@ export default defineComponent({
             style: {
                 height,
                 width,
-                touchAction: 'none',
-                cursor: 'crosshair',
-                ...customStyle
+                touchAction: 'none'
             },
             on: {
                 pointerdown: this.handlePointerDown,

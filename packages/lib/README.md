@@ -52,7 +52,6 @@ Name | Type | Default | Description |
 `backgroundColor` | String | `rgba(0,0,0,0)` | Canvas background color |
 `penColor` | String | `#000` | Canvas pen color |
 `strokeOptions` | Object | [Reference](https://github.com/steveruizok/perfect-freehand#options) | Perfect freehand options  |
-`customStyle` | Object | `{}` | Custom canvas style |
 
 ## Methods
 
