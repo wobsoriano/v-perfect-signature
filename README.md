@@ -26,18 +26,18 @@ export default Vue.extend({
     VPerfectSignature
   },
   data: () => ({
-      strokeOptions: {
+    strokeOptions: {
         size: 16,
         thinning: 0.75,
         smoothing: 0.5,
         streamline: 0.5,
-      } as StrokeOptions
+    } as StrokeOptions
   }),
   methods: {
-      toDataURL() {
-          const dataURL = this.$refs.signaturePad.toDataURL()
-          console.log(dataURL)
-      }
+    toDataURL() {
+        const dataURL = this.$refs.signaturePad.toDataURL()
+        console.log(dataURL)
+    }
   }
 })
 </script>
@@ -47,12 +47,24 @@ export default Vue.extend({
 
 Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
-`width` | String | 100% | Set canvas width |
-`height` | String | 100% | Set canvas height |
-`backgroundColor` | String | rgba(0,0,0,0) | Canvas background color |
-`penColor` | String | #000 | Canvas pen color |
+`width` | String | `100%` | Set canvas width |
+`height` | String | `100%` | Set canvas height |
+`backgroundColor` | String | `rgba(0,0,0,0)` | Canvas background color |
+`penColor` | String | `#000` | Canvas pen color |
 `strokeOptions` | Object | [Reference](https://github.com/steveruizok/perfect-freehand#options) | Perfect freehand options  |
-`customStyle` | Object | {} | Custom canvas style |
+`customStyle` | Object | `{}` | Custom canvas style |
+
+## Methods
+
+Name | Argument Type | Description |
+------ | ------ | ------ | ------ |
+`toDataURL` | Function | - |
+`fromDataURL` | Function | - |
+`fromData` | Function | - |
+`toData` | Function | - |
+`clear` | Function | - |
+`isEmpty` | Function | - |
+`resizeCanvas` | Function | - |
 
 ## Events
 
