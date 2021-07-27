@@ -13,11 +13,6 @@ import {
 
 type InputPoints = number[]
 
-interface PointsData {
-    allInputPoints: InputPoints[][]
-    currentInputPoints: InputPoints[] | null
-}
-
 export default defineComponent({
     data: () => ({
         allInputPoints: [] as InputPoints[][],
