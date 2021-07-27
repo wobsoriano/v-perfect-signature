@@ -1,7 +1,7 @@
-import VSignaturePad from '../VSignaturePad'
 import { shallowMount } from '@vue/test-utils'
 
 import { mockDataURL, inputPointsMockData } from './mock'
+import VSignaturePad from '../VSignaturePad'
 
 describe('VSignaturePad', () => {
     it('should receive default props', () => {
@@ -34,7 +34,7 @@ describe('VSignaturePad', () => {
         expect(wrapper.vm.toDataURL()).toBeUndefined()
     })
 
-    it('should return signature pad data uri', () => {
+    it('should return data uri', () => {
         const wrapper = shallowMount(VSignaturePad)
 
         wrapper.setData({
