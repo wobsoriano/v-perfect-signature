@@ -66,7 +66,7 @@ Name | Argument Type | Description |
 `isEmpty` | - | Returns true if canvas is empty |
 `resizeCanvas` | `Boolean` | Resize the canvas based on `window.devicePixelRatio` |
 
-Note: `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL` and `toData` won't work properly.
+Note: `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
 
 ## Events
 

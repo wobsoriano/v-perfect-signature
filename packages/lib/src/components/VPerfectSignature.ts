@@ -18,6 +18,7 @@ export default defineComponent({
         allInputPoints: [] as InputPoints[][],
         currentInputPoints: null as InputPoints[] | null,
         isDrawing: false,
+        images: [] as HTMLImageElement[]
     }),
     emits: ['onBegin', 'onEnd'],
     props: {
@@ -100,6 +101,23 @@ export default defineComponent({
         toData() {
             return this.allInputPoints
         },
+        fromDataURL(data: string) {
+            const image = new Image()
+
+            image.onload = () => {
+                const canvas = this.getCanvasElement()
+                const ctx = canvas.getContext('2d')
+                ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
+                this.images.push(image)
+            }
+
+            image.onerror = () => {
+                throw new Error('Invalid data uri')
+            }
+
+            image.crossOrigin = 'anonymous'
+            image.src = data
+        },
         toDataURL(type?: string) {
             if (type && !IMAGE_TYPES.includes(type)) {
                 throw new Error(`Incorrect image type. Must be one of ${IMAGE_TYPES.join(', ')}.`)
@@ -141,8 +159,11 @@ export default defineComponent({
         inputPointsHandler() {
             const canvas = this.getCanvasElement()
             const ctx = canvas.getContext('2d')
+
             // Smooth lines
-            ctx?.clearRect(0,0,canvas.width,canvas.height)
+            ctx?.clearRect(0, 0, canvas.width, canvas.height)
+            // Redraw images from data url
+            this.images.forEach((image) => ctx?.drawImage(image, 0, 0, canvas.width, canvas.height))
             this.setBackgroundAndPenColor()
 
             this.allInputPoints.forEach((point: InputPoints[]) => {
