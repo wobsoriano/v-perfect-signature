@@ -1,13 +1,11 @@
 <template>
   <VSignaturePad
     :stroke-options="strokeOptions"
-    height="500px"
-    width="500px"
     ref="canvas"
   />
-  <button @click="clear">clear</button>
+  <!-- <button @click="clear">clear</button>
   <button @click="undo">Undo</button>
-  <button @click="redo">Redo</button>
+  <button @click="redo">Redo</button> -->
 </template>
 
 <script lang="ts">
@@ -270,7 +268,12 @@ export default defineComponent({
   },
   data: () => ({
     strokeOptions: {
-      size: 8
+        size: 6,
+        thinning: 0.5,
+        smoothing: 0.5,
+        streamline: 0.5,
+        easing: (t: number) => t * (2 - t),
+        last: true,
     }
   }),
   mounted() {
@@ -303,8 +306,8 @@ export default defineComponent({
   padding: 0;
 }
 
-/* html {
-  height: 100vh;
-  width: 100vw;
-} */
+body {
+  height: 100%;
+  user-select: none;
+}
 </style>

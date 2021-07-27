@@ -3,7 +3,6 @@ import getStroke, { StrokeOptions } from 'perfect-freehand'
 
 import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
-import svgToCanvas from '../utils/svg-to-canvas'
 import convertToNonReactive from '../utils/convert-to-non-reactive'
 import {
     DEFAULT_BACKGROUND_COLOR,
@@ -13,11 +12,11 @@ import {
     DEFAULT_WIDTH
 } from '../utils/constants'
 
-type Point = [number, number, number]
+type InputPoints = number[]
 
 interface PointsData {
-    allPoints: Point[][]
-    currentPoints: Point[] | null
+    allPoints: InputPoints[][]
+    currentPoints: InputPoints[] | null
 }
 const initialPointsData: PointsData = {
     allPoints: [],
@@ -132,7 +131,7 @@ export default defineComponent({
             this.historyStep = 0
             this.points = convertToNonReactive([initialPointsData][0])
         },
-        fromData(data: Point[][]) {
+        fromData(data: InputPoints[][]) {
             const newHistoryRecord: PointsData = {
                 allPoints: [...this.points.allPoints, ...data],
                 currentPoints: null
@@ -145,8 +144,8 @@ export default defineComponent({
         toData() {
             return this.history[this.historyStep].allPoints
         },
-        async toDataURL(type?: string) {
-            if (type && !IMAGE_TYPES.includes(type)) {
+        async toDataURL(type: string = 'image/png') {
+            if (!IMAGE_TYPES.includes(type)) {
                 throw new Error('Incorrect image type!')
             }
 
@@ -154,9 +153,8 @@ export default defineComponent({
                 return
             }
 
-            const svgElement = this.$refs.signaturePad as SVGElement
-            const canvas = await svgToCanvas(svgElement)
-            return canvas.toDataURL(type ?? 'image/png')
+            const canvas = this.getCanvasElement()
+            return canvas.toDataURL(type)
         },
         getCanvasElement() {
             return this.$refs.signaturePad as HTMLCanvasElement
@@ -175,18 +173,22 @@ export default defineComponent({
         resizeCanvas() {
             const canvas = this.getCanvasElement()
             const rect = canvas.getBoundingClientRect()
-            const ratio =  window.devicePixelRatio || 1
-            canvas.width = rect.width * ratio;
-            canvas.height = rect.height * ratio;
-            canvas?.getContext('2d')?.scale(ratio, ratio)
-            canvas.style.width = rect.width + 'px';
-            canvas.style.height = rect.height + 'px';
+            const dpr =  2 //window.devicePixelRatio || 1
+
+            canvas.width = rect.width * dpr
+            canvas.height = rect.height * dpr
+            const ctx = canvas.getContext('2d')
+            ctx?.scale(dpr, dpr)
+
+            canvas.style.width = rect.width + 'px'
+            canvas.style.height = rect.height + 'px'
+
             this.clear()
             this.setBackgroundColor()
         }
     },
     mounted() {
-        window.addEventListener("resize", this.resizeCanvas, false);
+        window.addEventListener('resize', this.resizeCanvas, false);
         this.resizeCanvas()
     },
     beforeUnmount() {
@@ -203,7 +205,7 @@ export default defineComponent({
         'points.allPoints': {
             deep: true,
             handler(allPoints: PointsData['allPoints']) {
-                allPoints.forEach((point: Point[]) => {
+                allPoints.forEach((point: InputPoints[]) => {
                     const pathData = getSvgPathFromStroke(getStroke(point, this.strokeOptions))
                     const myPath = new Path2D(pathData)
                     const ctx = this.getCanvasContext()
@@ -234,6 +236,8 @@ export default defineComponent({
             style: {
                 height,
                 width,
+                touchAction: 'none',
+                cursor: 'crosshair',
                 ...customStyle
             },
             on: {
