@@ -4,8 +4,6 @@
     ref="canvas"
   />
   <button @click="clear">clear</button>
-  <button @click="undo">Undo</button>
-  <button @click="redo">Redo</button>
 </template>
 
 <script lang="ts">
@@ -279,22 +277,16 @@ export default defineComponent({
   },
   methods: {
     async clear() {
-      // this.$refs.canvas.clear()
+      this.$refs.canvas.clear()
       // console.log(JSON.parse(JSON.stringify(this.$refs.canvas.points)))
       // const data = await this.$refs.canvas.toDataURL()
       // console.log(data)
       // this.$refs.canvas.toDataURL()
-      const dataUrl = this.$refs.canvas.toDataURL()
-      console.log(dataUrl)
+    //   const dataUrl = this.$refs.canvas.toDataURL()
+    //   console.log(dataUrl)
       // const data = this.$refs.canvas.toData()
       // console.log(JSON.parse(JSON.stringify(data)))
     //   this.$refs.canvas.fromData(testData)
-    },
-    undo() {
-      this.$refs.canvas.undo()
-    },
-    redo() {
-      this.$refs.canvas.redo()
     }
   }
 })

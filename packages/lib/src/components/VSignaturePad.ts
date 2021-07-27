@@ -3,7 +3,6 @@ import getStroke, { StrokeOptions } from 'perfect-freehand'
 
 import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
-import convertToNonReactive from '../utils/convert-to-non-reactive'
 import {
     DEFAULT_BACKGROUND_COLOR,
     DEFAULT_PEN_COLOR,
@@ -147,9 +146,8 @@ export default defineComponent({
         inputPointsHandler() {
             const canvas = this.getCanvasElement()
             const ctx = canvas.getContext('2d')
-            // Clear to have smooth lines
+            // Smooth lines
             ctx?.clearRect(0,0,canvas.width,canvas.height)
-            // Set background 
             this.setBackgroundAndPenColor()
 
             this.allInputPoints.forEach((point: InputPoints[]) => {
