@@ -73,5 +73,11 @@ Name | Type | Default | Description |
 `onBegin` | Function | - | Fired when stroke begin |
 `onEnd` | Function | - | Fired when stroke end  |
 
+## Credits
+
+- [perfect-freehand](https://github.com/steveruizok/perfect-freehand)
+- [signature_pad](https://github.com/szimek/signature_pad)
+- [vue-signature-pad](https://github.com/neighborhood999/vue-signature-pad)
+
 ## License
 MIT - Copyright (c) 2021 [Robert Soriano](https://github.com/wobsoriano)
