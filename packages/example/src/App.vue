@@ -10,10 +10,10 @@
                     />
                 </div>
                 <div class="mt-10 space-x-4 text-center">
-                    <button @click="clear" class="px-4 py-2 font-medium tracking-wide text-gray-800 hover:text-white  capitalize transition-colors duration-200 transform  rounded-md bg-white border border-gray-800 hover:bg-gray-700 focus:outline-none  focus:bg-gray-700">
+                    <button @click="clear" class="clear-btn">
                         Clear and draw again
                     </button>
-                    <button @click="download" class="px-4 py-2 font-medium tracking-wide text-white hover:text-gray-800 capitalize transition-colors duration-200 transform  rounded-md bg-gray-800 hover:bg-white hover:border-gray-800 hover:border  focus:outline-none  ">
+                    <button @click="download" class="download-btn">
                         Download signature
                     </button>
                 </div>
@@ -55,3 +55,13 @@ const download = () => {
     document.body.removeChild(link)
 }
 </script>
+
+<style>
+.clear-btn {
+    @apply px-4 py-2 font-medium tracking-wide text-gray-800 hover:text-white  capitalize transition-colors duration-200 transform rounded-md bg-white border border-gray-800 hover:bg-gray-700 focus:outline-none focus:text-white  focus:bg-gray-700;
+}
+
+.download-btn {
+    @apply px-4 py-2 font-medium tracking-wide text-white hover:text-gray-800 capitalize transition-colors duration-200 transform rounded-md bg-gray-800 hover:bg-white hover:border-gray-800 hover:border  focus:outline-none;
+}
+</style>
