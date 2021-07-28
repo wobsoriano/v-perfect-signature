@@ -12,14 +12,12 @@ describe('#props', () => {
         const expectedPenColor = '#000'
         const expectedBackgroundColor = 'rgba(0,0,0,0)'
         const expectedStrokeOptions = {}
-        const expectedCustomStyle = {}
 
         expect(wrapper.props().width).toBe(expectedWidth)
         expect(wrapper.props().height).toBe(expectedHeight)
         expect(wrapper.props().penColor).toBe(expectedPenColor)
         expect(wrapper.props().backgroundColor).toBe(expectedBackgroundColor)
         expect(wrapper.props().strokeOptions).toEqual(expectedStrokeOptions)
-        expect(wrapper.props().customStyle).toEqual(expectedCustomStyle)
     })   
 })
 
