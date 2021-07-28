@@ -2,7 +2,7 @@
 
 Pressure-sensitive signature drawing for Vue 2 and 3 built on top of [perfect-freehand](https://github.com/steveruizok/perfect-freehand).
 
-TODO: Add demo link
+Demo: https://wobsoriano.github.io/v-perfect-signature
 
 ## Install
 
