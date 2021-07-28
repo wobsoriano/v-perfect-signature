@@ -8,7 +8,8 @@
     "deploy": "yarn build && gh-pages -d dist"
   },
   "dependencies": {
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "v-perfect-signature": "^0.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.5",
