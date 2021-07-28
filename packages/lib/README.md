@@ -63,7 +63,7 @@ Name | Argument Type | Description |
 `fromData(data)` | [Array](https://github.com/wobsoriano/v-perfect-signature/blob/master/packages/lib/src/components/__tests__/mock.ts#L1) | Draws signature image from array of array of input points |
 `clear()` | - | Clears the canvas |
 `isEmpty()` | - | Returns true if canvas is empty |
-`resizeCanvas(shouldClear)` | `Boolean` | Resizes and clears the canvas |
+`resizeCanvas(shouldClear)` | `Boolean` | Resizes and recalculates dimensions |
 
 Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
 
