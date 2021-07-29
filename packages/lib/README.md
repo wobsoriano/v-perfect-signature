@@ -63,7 +63,7 @@ Name | Argument Type | Description |
 `fromData(data)` | [Array](https://github.com/wobsoriano/v-perfect-signature/blob/master/packages/lib/src/components/__tests__/mock.ts#L1) | Draws signature image from array of array of input points |
 `clear()` | - | Clears the canvas |
 `isEmpty()` | - | Returns true if canvas is empty |
-`resizeCanvas(shouldClear)` | `Boolean` | Resizes and recalculates dimensions |
+`resizeCanvas(shouldClear)` | `Boolean` | Resizes and recalculate dimensions |
 
 Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataURL` does not populate internal data structure. Thus, after using `fromDataURL`, `toData` won't work properly.
 
@@ -79,6 +79,7 @@ Name | Type | Default | Description |
 - [perfect-freehand](https://github.com/steveruizok/perfect-freehand) - Draw perfect pressure-sensitive freehand strokes.
 - [signature_pad](https://github.com/szimek/signature_pad) - HTML 5 canvas based smooth signature drawing.
 - [vue-signature-pad](https://github.com/neighborhood999/vue-signature-pad) - Vue wrapper of signature_pad.
+- [vue-demi](https://github.com/vueuse/vue-demi/) - Creates Universal Library for Vue 2 & 3
 
 ## License
 MIT - Copyright (c) 2021 [Robert Soriano](https://github.com/wobsoriano)

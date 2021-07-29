@@ -220,6 +220,14 @@ export default defineComponent({
             height
         } = this
 
+        const handlers = {
+            pointerdown: this.handlePointerDown,
+            pointerup: this.handlePointerUp,
+            pointermove: this.handlePointerMove,
+            pointerenter: this.handlePointerEnter,
+            pointerleave: this.handlePointerLeave
+        }
+
         return h('canvas', {
             ref: 'signaturePad',
             style: {
@@ -227,13 +235,7 @@ export default defineComponent({
                 width,
                 touchAction: 'none'
             },
-            on: {
-                pointerdown: this.handlePointerDown,
-                pointerup: this.handlePointerUp,
-                pointermove: this.handlePointerMove,
-                pointerenter: this.handlePointerEnter,
-                pointerleave: this.handlePointerLeave
-            }
+            on: handlers
         })
     }
 })
