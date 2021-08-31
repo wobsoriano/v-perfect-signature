@@ -45,7 +45,7 @@ export default defineComponent({
         strokeOptions: {
             type: Object as PropType<StrokeOptions>,
             required: false,
-            default: {}
+            default: () => ({})
         }
     },
     methods: {
