@@ -54,8 +54,8 @@ export default defineComponent({
 
             const canvas = e.composedPath()[0] as HTMLCanvasElement
             const rect = canvas.getBoundingClientRect()
-            const x = e.pageX - rect.left
-            const y = e.pageY - rect.top
+            const x = e.clientX - rect.left
+            const y = e.clientY - rect.top
 
             this.currentInputPoints = [[x, y, e.pressure]]
             this.isDrawing = true
@@ -69,8 +69,8 @@ export default defineComponent({
 
                 const canvas = e.composedPath()[0] as HTMLCanvasElement
                 const rect = canvas.getBoundingClientRect()
-                const x = e.pageX - rect.left
-                const y = e.pageY - rect.top
+                const x = e.clientX - rect.left
+                const y = e.clientY - rect.top
 
                 this.currentInputPoints = [...this.currentInputPoints ?? [], [x, y, e.pressure]]
             }
