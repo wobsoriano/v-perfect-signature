@@ -3791,6 +3791,14 @@ util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
+v-perfect-signature@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/v-perfect-signature/-/v-perfect-signature-0.0.1.tgz#ebc29831763ffdd4caa16d90f9c4555b38ccf513"
+  integrity sha512-35KDCB/g3uv6dX1CGTOQCPes7LPfsBDUVW3yymKdEtLwh++tkEGZgfYqzCYFw2jLl+Ic8Um5pRBJ3QMxNu4+Bg==
+  dependencies:
+    perfect-freehand "^0.4.1"
+    vue-demi "^0.11.2"
+
 v8-to-istanbul@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/v8-to-istanbul/-/v8-to-istanbul-8.0.0.tgz#4229f2a99e367f3f018fa1d5c2b8ec684667c69c"
