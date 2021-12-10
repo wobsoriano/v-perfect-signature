@@ -10,6 +10,18 @@ Demo: https://wobsoriano.github.io/v-perfect-signature
 yarn add v-perfect-signature # or npm i v-perfect-signature
 ```
 
+For Nuxt.js compatibility install the nuxt composition API
+
+```
+yarn add @nuxtjs/composition-api # or npm i @nuxtjs/composition-api
+```
+Add Nuxt composition API to the `buildModules` array in your `nuxt.config.js`. 
+```
+buildModules: [
+    '@nuxtjs/composition-api/module'
+],
+```
+
 ## Usage
 
 ```html
