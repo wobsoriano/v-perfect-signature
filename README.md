@@ -7,7 +7,7 @@ Demo: https://wobsoriano.github.io/v-perfect-signature
 ## Install
 
 ```bash
-yarn add v-perfect-signature
+yarn add v-perfect-signature # or npm i v-perfect-signature
 ```
 
 ## Usage
