@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "perfect-freehand": "^1.0.16",
-    "vue-demi": "^0.11.2"
+    "vue-demi": "^0.12.1"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.1.0",

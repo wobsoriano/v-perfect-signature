@@ -3830,6 +3830,11 @@ vue-demi@^0.11.2:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.11.2.tgz#faa06da53887c493a695b997f4fcb4784a667990"
   integrity sha512-J+X8Au6BhQdcej6LY4O986634hZLu55L0ewU2j8my7WIKlu8cK0dqmdUxqVHHMd/cMrKKZ9SywB/id6aLhwCtA==
 
+vue-demi@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
+
 vue-tsc@^0.0.24:
   version "0.0.24"
   resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.0.24.tgz#0cd90db679f53ea1694254b8663fdb3d624a0872"
