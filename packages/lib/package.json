@@ -21,7 +21,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "perfect-freehand": "^0.4.1",
+    "perfect-freehand": "^1.0.16",
     "vue-demi": "^0.11.2"
   },
   "peerDependencies": {
