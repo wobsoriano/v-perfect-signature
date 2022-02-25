@@ -16,6 +16,9 @@
     "example#dev": {
       "cache": false,
       "dependsOn": ["v-perfect-signature#build"]
+    },
+    "clean": {
+      "cache": false
     }
   }
 }

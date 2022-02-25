@@ -18,7 +18,8 @@
     "dev": "rollup -c -w",
     "switch:2": "vue-demi-switch 2 vue2",
     "switch:3": "vue-demi-switch 3",
-    "test": "jest"
+    "test": "jest",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "perfect-freehand": "^1.0.16",
