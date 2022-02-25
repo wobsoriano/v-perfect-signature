@@ -9,13 +9,13 @@
   ],
   "license": "MIT",
   "version": "1.1.1",
-  "module": "dist/v-perfect-signature.esm.js",
-  "main": "dist/v-perfect-signature.cjs.js",
-  "unpkg": "dist/v-perfect-signature.global.js",
+  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs.js",
+  "unpkg": "dist/index.global.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "build:watch": "rollup -c -w",
+    "dev": "rollup -c -w",
     "switch:2": "vue-demi-switch 2 vue2",
     "switch:3": "vue-demi-switch 3",
     "test": "jest"

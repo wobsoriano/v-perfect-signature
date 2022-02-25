@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # npm
 package-lock.json
+
+# turbo
+.turbo

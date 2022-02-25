@@ -1,13 +1,11 @@
 {
-    "name": "monorepo",
-    "private": true,
-    "workspaces": [
-      "packages/*"
-    ],
-    "scripts": {
-      "dev": "yarn workspace example dev",
-      "lib:watch": "yarn workspace v-perfect-signature run build:watch",
-      "lib": "yarn workspace v-perfect-signature",
-      "example": "yarn workspace example"
-    }
+  "name": "monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.1.4"
+  },
+  "packageManager": "yarn@1.22.10"
 }
