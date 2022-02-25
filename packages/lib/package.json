@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@vue/compiler-sfc": "^3.2.31",
-    "@vue/test-utils": "^2.0.0-rc.10",
+    "@vue/test-utils": "2.0.0-rc.18",
     "canvas": "^2.8.0",
     "jest": "^27.0.6",
     "jest-canvas-mock": "^2.3.1",
