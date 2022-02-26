@@ -4,6 +4,12 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "deploy": "turbo run deploy",
+    "dev": "turbo run dev"
+  },
   "devDependencies": {
     "turbo": "^1.1.4"
   },
