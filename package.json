@@ -8,6 +8,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "deploy": "turbo run deploy",
+    "clean": "turbo run clean",
     "dev": "turbo run dev"
   },
   "devDependencies": {
