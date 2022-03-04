@@ -21,9 +21,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-# npm
-package-lock.json
-
-# turbo
-.turbo
