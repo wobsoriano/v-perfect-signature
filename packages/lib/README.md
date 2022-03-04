@@ -14,8 +14,8 @@ yarn add v-perfect-signature
 
 ```html
 <script setup>
-  import { ref } from "vue";
-  import VPerfectSignature from "v-perfect-signature";
+  import { ref } from 'vue';
+  import VPerfectSignature from 'v-perfect-signature';
 
   const signaturePad = ref();
   const strokeOptions = {
