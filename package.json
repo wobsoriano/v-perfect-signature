@@ -1,18 +1,19 @@
 {
   "name": "monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "deploy": "turbo run deploy",
-    "clean": "turbo run clean",
-    "dev": "turbo run dev"
+    "lib": "pnpm -C packages/lib",
+    "example": "pnpm -C packages/example",
+    "clean": "rm -rf node_modules && pnpm -r clean"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true
   },
   "devDependencies": {
-    "turbo": "^1.1.4"
-  },
-  "packageManager": "yarn@1.22.10"
+    "@vue/compiler-sfc": "^3.2.31",
+    "tsup": "^5.11.13",
+    "typescript": "^4.5.3",
+    "vue": "^3.2.31"
+  }
 }

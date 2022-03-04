@@ -1,3 +1,3 @@
-export { StrokeOptions } from 'perfect-freehand';
+import VPerfectSignature from './components/VPerfectSignature';
 
-export { default } from './components/VPerfectSignature';
+export default VPerfectSignature;
