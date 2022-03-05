@@ -21,7 +21,8 @@
     "build": "pnpm run build-fast -- --dts-resolve",
     "clean": "rm -rf node_modules dist",
     "prepublishOnly": "pnpm run build",
-    "test": "jest"
+    "test": "jest",
+    "release": "bumpp --commit --push --tag && pnpm publish"
   },
   "dependencies": {
     "perfect-freehand": "^1.0.16",
@@ -39,6 +40,7 @@
     "@types/jest": "^27.4.1",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/test-utils": "2.0.0-rc.18",
+    "bumpp": "^7.1.1",
     "canvas": "^2.8.0",
     "jest": "^27.0.6",
     "jest-canvas-mock": "^2.3.1",

@@ -58,7 +58,7 @@ describe('#fromDataURL', () => {
   it('fails if data uri is incorrect', async() => {
     const wrapper = shallowMount(VPerfectSignature)
 
-    await expect(wrapper.vm.fromDataURL('random string')).rejects.toBe(
+    await expect(wrapper.vm.fromDataURL('random string')).rejects.toThrow(
       'Incorrect data uri provided',
     )
   })
