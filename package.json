@@ -4,15 +4,21 @@
   "scripts": {
     "lib": "pnpm -C packages/lib",
     "example": "pnpm -C packages/example",
-    "clean": "rm -rf node_modules && pnpm -r clean"
-  },
-  "prettier": {
-    "semi": true,
-    "singleQuote": true
+    "clean": "rm -rf node_modules && pnpm -r clean",
+    "lint": "eslint \"**/*.{ts,js}\""
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.16.1",
     "@vue/compiler-sfc": "^3.2.31",
+    "eslint": "^8.10.0",
     "typescript": "^4.5.3",
     "vue": "^3.2.31"
-  }
+  },
+  "eslintConfig": {
+    "extends": "@antfu"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "dist"
+  ]
 }

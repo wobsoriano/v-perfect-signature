@@ -1,3 +1,3 @@
-import VPerfectSignature from './components/VPerfectSignature';
+import VPerfectSignature from './components/VPerfectSignature'
 
-export default VPerfectSignature;
+export default VPerfectSignature

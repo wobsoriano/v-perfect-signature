@@ -55,9 +55,5 @@
     "type": "git",
     "url": "git+https://github.com/wobsoriano/v-perfect-signature.git"
   },
-  "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme",
-  "prettier": {
-    "singleQuote": true,
-    "semi": true
-  }
+  "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme"
 }
