@@ -1,5 +1,5 @@
 
-import { vi } from 'vitest'
+import { afterAll, vi } from 'vitest'
 // @ts-expect-error: type
 global.jest = vi
 // eslint-disable-next-line import/first
@@ -24,4 +24,11 @@ apis.forEach((api) => {
   global[api] = canvasWindow[api]
   // @ts-expect-error: type
   global.window[api] = canvasWindow[api]
+})
+
+afterAll(() => {
+  // @ts-expect-error: type
+  delete global.jest
+  // @ts-expect-error: type
+  delete global.window.jest
 })
