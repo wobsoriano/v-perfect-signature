@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 
 import { spyOn } from 'vitest'
-import VPerfectSignature from '../VPerfectSignature'
+import VPerfectSignature from '../src'
 import { inputPointsMockData, mockDataURL } from './mock'
 
 describe('#props', () => {
