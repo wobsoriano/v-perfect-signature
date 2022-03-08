@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import type VPerfectSignature from 'v-perfect-signature'
+import VPerfectSignature from 'v-perfect-signature'
 import { ref } from 'vue'
 import Nav from './components/Nav.vue'
 
@@ -35,7 +35,7 @@ const strokeOptions = {
   last: true,
 }
 
-const signaturePad = ref<typeof VPerfectSignature>()
+const signaturePad = ref()
 
 const clear = () => {
   signaturePad.value?.clear()
