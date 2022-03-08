@@ -4,15 +4,14 @@
   "scripts": {
     "lib": "pnpm -C packages/lib",
     "example": "pnpm -C packages/example",
-    "clean": "rm -rf node_modules && pnpm -r clean",
-    "lint": "eslint \"**/*.{ts,js}\"",
-    "prepare": "husky install"
+    "clean": "rm -rf node_modules && pnpm -r clean"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.16.1",
     "@vue/compiler-sfc": "^3.2.31",
     "eslint": "^8.10.0",
-    "husky": "^7.0.4",
+    "lint-staged": "^12.3.5",
+    "simple-git-hooks": "^2.7.0",
     "typescript": "^4.5.3",
     "vue": "^3.2.31"
   },
@@ -22,5 +21,13 @@
   "eslintIgnore": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "lint-staged": {
+    "{packages}/**/*.{js,ts,vue,md}": [
+      "eslint --fix"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  }
 }
