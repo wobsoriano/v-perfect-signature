@@ -1,4 +1,3 @@
-
 import { afterAll, vi } from 'vitest'
 // @ts-expect-error: type
 global.jest = vi
