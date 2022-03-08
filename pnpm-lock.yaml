@@ -5,7 +5,6 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.16.1
-      '@vue/compiler-sfc': ^3.2.31
       eslint: ^8.10.0
       lint-staged: ^12.3.5
       simple-git-hooks: ^2.7.0
@@ -13,7 +12,6 @@ importers:
       vue: ^3.2.31
     devDependencies:
       '@antfu/eslint-config': 0.16.1_eslint@8.10.0+typescript@4.6.2
-      '@vue/compiler-sfc': 3.2.31
       eslint: 8.10.0
       lint-staged: 12.3.5
       simple-git-hooks: 2.7.0
@@ -24,7 +22,6 @@ importers:
     specifiers:
       '@babel/types': ^7.17.0
       '@vitejs/plugin-vue': ^1.2.5
-      '@vue/compiler-sfc': ^3.2.31
       autoprefixer: ^10.2.6
       gh-pages: ^3.2.3
       postcss: ^8.3.5
@@ -40,7 +37,6 @@ importers:
     devDependencies:
       '@babel/types': 7.17.0
       '@vitejs/plugin-vue': 1.10.2_vite@2.8.6
-      '@vue/compiler-sfc': 3.2.31
       autoprefixer: 10.4.2_postcss@8.4.7
       gh-pages: 3.2.3
       postcss: 8.4.7
@@ -51,7 +47,6 @@ importers:
 
   packages/lib:
     specifiers:
-      '@vue/compiler-sfc': ^3.2.31
       '@vue/test-utils': 2.0.0-rc.18
       bumpp: ^7.1.1
       canvas: ^2.9.0
@@ -68,7 +63,6 @@ importers:
       perfect-freehand: 1.0.16
       vue-demi: 0.12.1_vue@3.2.31
     devDependencies:
-      '@vue/compiler-sfc': 3.2.31
       '@vue/test-utils': 2.0.0-rc.18_vue@3.2.31
       bumpp: 7.1.1
       canvas: 2.9.0

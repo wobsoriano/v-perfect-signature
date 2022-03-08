@@ -37,7 +37,6 @@
     }
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.31",
     "@vue/test-utils": "2.0.0-rc.18",
     "bumpp": "^7.1.1",
     "canvas": "^2.9.0",
