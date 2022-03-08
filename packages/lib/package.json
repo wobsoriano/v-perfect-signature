@@ -21,7 +21,7 @@
     "build": "pnpm run build-fast -- --dts-resolve",
     "clean": "rm -rf node_modules dist",
     "prepublishOnly": "pnpm run build",
-    "test": "jest",
+    "test": "vitest run",
     "release": "bumpp --commit --push --tag && pnpm publish"
   },
   "dependencies": {
@@ -37,17 +37,15 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
     "@vue/compiler-sfc": "^3.2.31",
     "@vue/test-utils": "2.0.0-rc.18",
     "bumpp": "^7.1.1",
-    "canvas": "^2.8.0",
-    "jest": "^27.0.6",
+    "canvas": "^2.9.0",
     "jest-canvas-mock": "^2.3.1",
-    "ts-jest": "^27.0.4",
-    "tslib": "^2.3.0",
+    "jsdom": "^19.0.0",
     "tsup": "^5.11.13",
-    "typescript": "^4.2.3",
+    "typescript": "^4.6.2",
+    "vitest": "^0.6.0",
     "vue": "^3.2.31"
   },
   "files": [

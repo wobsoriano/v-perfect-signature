@@ -10,7 +10,8 @@
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
       "sourceMap": true,
-      "baseUrl": "."
+      "baseUrl": ".",
+      "types": ["vitest/globals"]
     },
     "include": [
       "src/**/*.ts",
