@@ -54,6 +54,7 @@ importers:
       jest-canvas-mock: ^2.3.1
       jsdom: ^19.0.0
       perfect-freehand: ^1.0.16
+      tslib: ^2.3.1
       tsup: ^5.11.13
       typescript: ^4.6.2
       vitest: ^0.6.0
@@ -69,6 +70,7 @@ importers:
       canvas: 2.9.0
       jest-canvas-mock: 2.3.1
       jsdom: 19.0.0_canvas@2.9.0
+      tslib: 2.3.1
       tsup: 5.11.13_typescript@4.6.2
       typescript: 4.6.2
       vitest: 0.6.0_jsdom@19.0.0
@@ -3807,6 +3809,10 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
+
+  /tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
     dev: true
 
   /tsup/5.11.13_typescript@4.6.2:
