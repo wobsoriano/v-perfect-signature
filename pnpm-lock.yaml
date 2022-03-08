@@ -22,6 +22,7 @@ importers:
 
   packages/example:
     specifiers:
+      '@babel/types': ^7.17.0
       '@vitejs/plugin-vue': ^1.2.5
       '@vue/compiler-sfc': ^3.2.31
       autoprefixer: ^10.2.6
@@ -37,6 +38,7 @@ importers:
       v-perfect-signature: link:../lib
       vue: 3.2.31
     devDependencies:
+      '@babel/types': 7.17.0
       '@vitejs/plugin-vue': 1.10.2_vite@2.8.6
       '@vue/compiler-sfc': 3.2.31
       autoprefixer: 10.4.2_postcss@8.4.7
@@ -194,6 +196,14 @@ packages:
     resolution: {integrity: sha512-7yJPvPV+ESz2IUTPbOL+YkIGyCqOyNIzdguKQuJGnH7bg1WTIifuM21YqokFt/THWh1AkCRn9IgoykTRCBVpzA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  /@babel/types/7.17.0:
+    resolution: {integrity: sha512-TmKSNO4D5rzhL5bjWFcVHHLETzfQ/AmbKpKPOSjlP0WoHZ6L911fgoOKY4Alp/emzG4cHJdyN49zpgkbXFEHHw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-validator-identifier': 7.16.7
+      to-fast-properties: 2.0.0
+    dev: true
 
   /@eslint/eslintrc/1.2.0:
     resolution: {integrity: sha512-igm9SjJHNEJRiUnecP/1R5T3wKLEJ7pL6e2P+GUSfCd0dGjPYYZve08uzw8L2J8foVHFz+NGu12JxRcU2gGo6w==}
@@ -3966,6 +3976,11 @@ packages:
     engines: {node: '>=8.17.0'}
     dependencies:
       rimraf: 3.0.2
+    dev: true
+
+  /to-fast-properties/2.0.0:
+    resolution: {integrity: sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=}
+    engines: {node: '>=4'}
     dev: true
 
   /to-regex-range/5.0.1:
