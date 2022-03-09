@@ -18,7 +18,7 @@ importers:
       typescript: 4.6.2
       vue: 3.2.31
 
-  packages/example:
+  apps/web:
     specifiers:
       '@vitejs/plugin-vue': ^1.2.5
       autoprefixer: ^10.2.6
@@ -31,7 +31,7 @@ importers:
       vue: ^3.2.31
       vue-tsc: ^0.0.24
     dependencies:
-      v-perfect-signature: link:../lib
+      v-perfect-signature: link:../../packages/lib
       vue: 3.2.31
     devDependencies:
       '@vitejs/plugin-vue': 1.10.2_vite@2.8.6

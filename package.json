@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "lib": "pnpm -C packages/lib",
-    "example": "pnpm -C packages/example",
+    "playground": "pnpm -C apps/web",
     "clean": "rm -rf node_modules && pnpm -r clean"
   },
   "devDependencies": {
