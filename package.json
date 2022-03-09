@@ -22,7 +22,7 @@
     "dist"
   ],
   "lint-staged": {
-    "packages/**/*.{js,ts,vue,md}": [
+    "{packages,apps}/**/*.{js,ts,vue,md}": [
       "eslint --fix"
     ]
   },
