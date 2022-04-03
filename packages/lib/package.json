@@ -1,5 +1,6 @@
 {
   "name": "v-perfect-signature",
+  "version": "1.1.4",
   "description": "Perfect pressure-sensitive signature drawing for Vue 2 and 3",
   "keywords": [
     "vue",
@@ -8,25 +9,27 @@
     "freehand"
   ],
   "license": "MIT",
-  "version": "1.1.4",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wobsoriano/v-perfect-signature.git"
+  },
+  "files": [
+    "dist"
+  ],
   "exports": {
     "require": "./dist/index.js",
     "import": "./dist/index.mjs"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build-fast": "tsup src/index.ts --format cjs,esm",
-    "build": "pnpm run build-fast -- --dts-resolve",
+    "build": "pnpm run build-fast -- --dts-resolve --minify",
     "clean": "rm -rf node_modules dist",
     "prepublishOnly": "pnpm run build",
     "test": "vitest run",
     "release": "bumpp --commit --push --tag && pnpm publish"
-  },
-  "dependencies": {
-    "perfect-freehand": "^1.0.16",
-    "vue-demi": "^0.12.1"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.4.0"
@@ -35,6 +38,10 @@
     "@vue/composition-api": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "perfect-freehand": "^1.0.16",
+    "vue-demi": "^0.12.1"
   },
   "devDependencies": {
     "@vue/test-utils": "2.0.0-rc.18",
@@ -47,13 +54,6 @@
     "typescript": "^4.6.2",
     "vitest": "^0.6.0",
     "vue": "^3.2.31"
-  },
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wobsoriano/v-perfect-signature.git"
   },
   "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme"
 }
