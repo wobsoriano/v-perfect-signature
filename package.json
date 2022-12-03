@@ -1,6 +1,6 @@
 {
   "name": "v-perfect-signature",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Perfect pressure-sensitive signature drawing for Vue 2 and 3",
   "keywords": [
     "vue",
