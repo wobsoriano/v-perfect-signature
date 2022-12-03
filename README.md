@@ -12,10 +12,10 @@ pnpm add v-perfect-signature
 
 ## Usage
 
-```html
+```vue
 <script setup>
   import { ref } from 'vue';
-  import VPerfectSignature from 'v-perfect-signature';
+  import { VPerfectSignature } from 'v-perfect-signature';
 
   const signaturePad = ref();
   const strokeOptions = {
@@ -67,13 +67,6 @@ Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataUR
 | `onBegin` | Function | -       | Fired when stroke begin |
 | `onEnd`   | Function | -       | Fired when stroke end   |
 
-## Credits
-
-- [perfect-freehand](https://github.com/steveruizok/perfect-freehand) - Draw perfect pressure-sensitive freehand strokes.
-- [signature_pad](https://github.com/szimek/signature_pad) - HTML 5 canvas based smooth signature drawing.
-- [vue-signature-pad](https://github.com/neighborhood999/vue-signature-pad) - Vue wrapper of signature_pad.
-- [vue-demi](https://github.com/vueuse/vue-demi/) - Creates Universal Library for Vue 2 & 3
-
 ## License
 
-MIT - Copyright (c) 2022 [Robert Soriano](https://github.com/wobsoriano)
+MIT
