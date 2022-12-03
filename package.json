@@ -24,7 +24,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "concurrently \"pnpm build -- --watch\" \"pnpm --filter playground dev\"",
+    "dev": "concurrently \"pnpm build --watch\" \"pnpm --filter playground dev\"",
     "build": "tsup",
     "prepublishOnly": "pnpm run build",
     "test": "vitest run",
