@@ -67,6 +67,14 @@ Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataUR
 | `onBegin` | Function | -       | Fired when stroke begin |
 | `onEnd`   | Function | -       | Fired when stroke end   |
 
+## Nuxt
+
+```js
+export default defineNuxtConfig({
+  modules: ['v-perfect-signature/nuxt']
+})
+```
+
 ## License
 
 MIT

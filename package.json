@@ -14,11 +14,17 @@
     "url": "git+https://github.com/wobsoriano/v-perfect-signature.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "nuxt.mjs"
   ],
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./nuxt": {
+      "import": "./nuxt.mjs"
+    }
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
