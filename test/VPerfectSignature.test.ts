@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 
-import { describe, expect, it, spyOn } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import VPerfectSignature from '../src'
 import { inputPointsMockData, mockDataURL } from './mock'
 
@@ -53,7 +53,7 @@ describe('#fromDataURL', () => {
     await expect(wrapper.vm.fromDataURL(mockDataURL)).resolves.toBe(true)
   })
 
-  spyOn(console, 'error').mockImplementation(() => {})
+  vi.spyOn(console, 'error').mockImplementation(() => {})
 
   it('fails if data uri is incorrect', async() => {
     const wrapper = shallowMount(VPerfectSignature)
