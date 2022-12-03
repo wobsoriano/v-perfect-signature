@@ -71,7 +71,9 @@ Note: Like [signature_pad](https://github.com/szimek/signature_pad), `fromDataUR
 
 ```js
 export default defineNuxtConfig({
-  modules: ['v-perfect-signature/nuxt']
+  build: {
+    transpile: ['v-perfect-signature']
+  }
 })
 ```
 
