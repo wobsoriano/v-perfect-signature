@@ -31,7 +31,7 @@
     "release": "bumpp && pnpm publish"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.4.0"
+    "@vue/composition-api": "^1.7.1"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
