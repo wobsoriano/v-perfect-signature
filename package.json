@@ -1,32 +1,60 @@
 {
-  "name": "monorepo",
-  "private": true,
-  "scripts": {
-    "lib": "pnpm -C packages/lib",
-    "playground": "pnpm -C apps/web",
-    "clean": "rm -rf node_modules && pnpm -r clean"
+  "name": "v-perfect-signature",
+  "version": "1.1.5",
+  "description": "Perfect pressure-sensitive signature drawing for Vue 2 and 3",
+  "keywords": [
+    "vue",
+    "signature",
+    "pad",
+    "freehand"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wobsoriano/v-perfect-signature.git"
   },
-  "devDependencies": {
-    "@antfu/eslint-config": "^0.18.3",
-    "eslint": "^8.10.0",
-    "lint-staged": "^12.3.5",
-    "simple-git-hooks": "^2.7.0",
-    "typescript": "^4.5.3",
-    "vue": "^3.2.31"
-  },
-  "eslintConfig": {
-    "extends": "@antfu"
-  },
-  "eslintIgnore": [
-    "node_modules",
+  "files": [
     "dist"
   ],
-  "lint-staged": {
-    "{packages,apps}/**/*.{js,ts,vue,md}": [
-      "eslint --fix"
-    ]
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
   },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
-  }
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build-fast": "tsup src/index.ts --format cjs,esm",
+    "build": "pnpm run build-fast -- --dts-resolve --minify",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest run",
+    "release": "bumpp && pnpm publish"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "perfect-freehand": "^1.2.0",
+    "vue-demi": "^0.13.11"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.33.1",
+    "@vue/test-utils": "2.2.5",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.10.0",
+    "jest-canvas-mock": "^2.4.0",
+    "jsdom": "^20.0.3",
+    "tslib": "^2.4.1",
+    "tsup": "^6.5.0",
+    "typescript": "^4.6.2",
+    "vitest": "^0.25.3",
+    "vue": "^3.2.45",
+    "v-perfect-signature": "workspace:*"
+  },
+  "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme"
 }
