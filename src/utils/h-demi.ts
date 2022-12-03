@@ -18,15 +18,15 @@ const adaptOnsV3 = (ons: Object) => {
 const h = (
   type: String | Object,
   options: Options & any = {},
-  chidren?: any,
+  children?: any,
 ) => {
-  if (isVue2) return hDemi(type, options, chidren)
+  if (isVue2) return hDemi(type, options, children)
 
   const { props, domProps, on, ...extraOptions } = options
 
   const ons = adaptOnsV3(on)
   const params = { ...extraOptions, ...props, ...domProps, ...ons }
-  return hDemi(type, params, chidren)
+  return hDemi(type, params, children)
 }
 
 export default h
