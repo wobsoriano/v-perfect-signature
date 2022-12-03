@@ -1,7 +1,7 @@
 import type { PropType } from 'vue-demi'
 import { defineComponent } from 'vue-demi'
 import type { StrokeOptions } from 'perfect-freehand'
-import { getStroke } from 'perfect-freehand'
+import getStroke from 'perfect-freehand'
 
 import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
