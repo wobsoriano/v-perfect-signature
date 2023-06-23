@@ -50,6 +50,7 @@ export default defineComponent({
     allInputPoints: [] as InputPoints[][],
     currentInputPoints: null as InputPoints[] | null,
     isDrawing: false,
+    isLocked: false,
     cachedImages: [] as HTMLImageElement[],
   }),
   watch: {
@@ -89,6 +90,8 @@ export default defineComponent({
       ctx?.scale(dpr, dpr) // Set scaling back to original value
     },
     handlePointerDown(e: PointerEvent) {
+      if (this.isLocked) return
+
       e.preventDefault()
 
       const canvas = e.composedPath()[0] as HTMLCanvasElement
@@ -101,6 +104,7 @@ export default defineComponent({
       this.$emit('onBegin', e)
     },
     handlePointerMove(e: PointerEvent) {
+      if (this.isLocked) return
       if (!this.isDrawing) return
 
       if (e.buttons === 1) {
@@ -118,6 +122,8 @@ export default defineComponent({
       }
     },
     handlePointerUp(e: PointerEvent) {
+      if (this.isLocked) return
+
       e.preventDefault()
       this.isDrawing = false
 
@@ -129,10 +135,13 @@ export default defineComponent({
       this.$emit('onEnd', e)
     },
     handlePointerEnter(e: PointerEvent) {
+      if (this.isLocked) return
+
       if (e.buttons === 1)
         this.handlePointerDown(e)
     },
     handlePointerLeave(e: PointerEvent) {
+      if (this.isLocked) return
       if (!this.isDrawing) return
       this.handlePointerUp(e)
     },
@@ -146,6 +155,12 @@ export default defineComponent({
     },
     fromData(data: InputPoints[][]) {
       this.allInputPoints = [...this.allInputPoints, ...data]
+    },
+    lock() {
+      this.isLocked = true
+    },
+    unlock() {
+      this.isLocked = false
     },
     toData() {
       return this.allInputPoints
