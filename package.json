@@ -51,7 +51,6 @@
     "@antfu/eslint-config": "^0.39.5",
     "@vue/test-utils": "2.4.0",
     "bumpp": "^9.1.1",
-    "concurrently": "^8.2.0",
     "eslint": "^8.43.0",
     "jsdom": "^22.1.0",
     "tslib": "^2.5.3",
