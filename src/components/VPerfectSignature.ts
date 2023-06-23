@@ -79,6 +79,15 @@ export default defineComponent({
     this.resizeCanvas()
   },
   methods: {
+    _drawImage(image: HTMLImageElement) {
+      const canvas = this.getCanvasElement()
+      const ctx = canvas.getContext('2d')
+      const dpr = window.devicePixelRatio || 1
+
+      ctx?.scale(1/dpr, 1/dpr) // To allow proper scaling of the image on HiDPI, we need to reset the scaling before calling `drawImage`
+      ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
+      ctx?.scale(dpr, dpr) // Set scaling back to original value
+    },
     handlePointerDown(e: PointerEvent) {
       e.preventDefault()
 
@@ -146,9 +155,7 @@ export default defineComponent({
         const image = new Image()
 
         image.onload = () => {
-          const canvas = this.getCanvasElement()
-          const ctx = canvas.getContext('2d')
-          ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
+          this._drawImage(image)
           this.cachedImages.push(image)
           resolve(true)
         }
@@ -208,9 +215,7 @@ export default defineComponent({
       // Makes smooth lines
       ctx?.clearRect(0, 0, canvas.width, canvas.height)
 
-      this.cachedImages.forEach(image =>
-        ctx?.drawImage(image, 0, 0, canvas.width, canvas.height),
-      )
+      this.cachedImages.forEach(image => this._drawImage(image))
       this.setBackgroundAndPenColor()
 
       this.allInputPoints.forEach((point: InputPoints[]) => {
