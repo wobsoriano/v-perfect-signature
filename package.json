@@ -28,7 +28,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "concurrently \"pnpm build --watch\" \"pnpm --filter playground dev\"",
+    "dev": "tsup --watch --onSuccess \"pnpm --filter playground dev\"",
     "build": "tsup",
     "prepublishOnly": "pnpm run build",
     "test": "vitest run",
@@ -45,22 +45,21 @@
   },
   "dependencies": {
     "perfect-freehand": "^1.2.0",
-    "vue-demi": "^0.13.11"
+    "vue-demi": "^0.14.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.33.1",
-    "@vue/test-utils": "2.2.5",
-    "bumpp": "^8.2.1",
-    "concurrently": "^7.6.0",
-    "eslint": "^8.10.0",
-    "jsdom": "^20.0.3",
-    "tslib": "^2.4.1",
-    "tsup": "^6.5.0",
-    "typescript": "^4.6.2",
-    "v-perfect-signature": "workspace:*",
-    "vitest": "^0.25.3",
-    "vitest-canvas-mock": "^0.2.2",
-    "vue": "^3.2.45"
+    "@antfu/eslint-config": "^0.39.5",
+    "@vue/test-utils": "2.4.0",
+    "bumpp": "^9.1.1",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.43.0",
+    "jsdom": "^22.1.0",
+    "tslib": "^2.5.3",
+    "tsup": "^7.0.0",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.2",
+    "vitest-canvas-mock": "^0.3.1",
+    "vue": "^3.3.4"
   },
   "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme"
 }
