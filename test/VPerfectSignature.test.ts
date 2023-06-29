@@ -36,15 +36,15 @@ describe('#toDataURL', () => {
   })
 
   // TODO: Returns incorrect data url. Bug?
-  // it('should return data uri', () => {
-  //     const wrapper = shallowMount(VPerfectSignature)
+  it.todo('should return data uri', async () => {
+      const wrapper = shallowMount(VPerfectSignature)
 
-  //     wrapper.setData({
-  //         allInputPoints: inputPointsMockData
-  //     })
+      await wrapper.setData({
+          allInputPoints: inputPointsMockData
+      })
 
-  //     expect(wrapper.vm.toDataURL()).toBe(mockDataURL)
-  // })
+      expect(wrapper.vm.toDataURL()).toBe(mockDataURL)
+  })
 })
 
 describe('#fromDataURL', () => {
