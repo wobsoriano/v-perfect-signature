@@ -1,15 +1,18 @@
 {
     "compilerOptions": {
-      "target": "es2018",
-      "lib": ["esnext", "DOM"],
+      "target": "es2020",
       "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "esModuleInterop": true,
       "strict": true,
-      "strictNullChecks": true,
-      "skipDefaultLibCheck": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
       "skipLibCheck": true,
+      "noUnusedLocals": true,
+      "noImplicitAny": true,
+      "allowJs": true,
+      "noEmit": true,
+      "outDir": "dist",
+      "resolveJsonModule": true,
+      "types": ["vitest/globals"],
       "baseUrl": "."
     },
     "include": [
