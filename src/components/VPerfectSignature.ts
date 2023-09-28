@@ -52,14 +52,14 @@ export default defineComponent({
     isDrawing: false,
     isLocked: false,
     cachedImages: [] as HTMLImageElement[],
+    ctx: null as null | CanvasRenderingContext2D
   }),
   watch: {
     backgroundColor() {
       this.setBackgroundAndPenColor()
     },
     penColor(color: string) {
-      const canvas = this.getCanvasElement()
-      const ctx = canvas.getContext('2d')
+      const ctx = this.getCanvasContext();
       if (ctx)
         ctx.fillStyle = color
     },
@@ -198,6 +198,13 @@ export default defineComponent({
     getCanvasElement() {
       return this.$refs.signaturePad as HTMLCanvasElement
     },
+    getCanvasContext() {
+      if (!this.ctx) {
+        const canvas = this.getCanvasElement();
+        this.ctx = canvas.getContext('2d');
+      }
+      return this.ctx;
+    },
     setBackgroundAndPenColor() {
       const canvas = this.getCanvasElement()
       const ctx = canvas.getContext('2d')
@@ -212,20 +219,22 @@ export default defineComponent({
 
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
-      const ctx = canvas.getContext('2d')
+      const ctx = this.getCanvasContext();
       ctx?.scale(dpr, dpr)
 
       canvas.style.width = `${rect.width}px`
       canvas.style.height = `${rect.height}px`
 
-      if (clearCanvas)
+      if (clearCanvas) {
+        ctx?.clearRect(0, 0, canvas.width, canvas.height)
         this.clear()
+      }
 
       this.setBackgroundAndPenColor()
     },
     inputPointsHandler() {
       const canvas = this.getCanvasElement()
-      const ctx = canvas.getContext('2d')
+      const ctx = this.getCanvasContext();
 
       // Makes smooth lines
       ctx?.clearRect(0, 0, canvas.width, canvas.height)
