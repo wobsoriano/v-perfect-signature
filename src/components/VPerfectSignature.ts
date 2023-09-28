@@ -82,7 +82,7 @@ export default defineComponent({
   methods: {
     _drawImage(image: HTMLImageElement) {
       const canvas = this.getCanvasElement()
-      const ctx = canvas.getContext('2d')
+      const ctx = this.getCanvasContext();
       const dpr = window.devicePixelRatio || 1
 
       ctx?.scale(1/dpr, 1/dpr) // To allow proper scaling of the image on HiDPI, we need to reset the scaling before calling `drawImage`
