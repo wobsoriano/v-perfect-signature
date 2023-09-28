@@ -6,6 +6,7 @@ export default defineConfig({
   splitting: false,
   clean: true,
   dts: true,
+  minify: true,
   outExtension ({ format }) {
     return {
       js: format === 'esm' ? '.mjs' : `.${format}`
