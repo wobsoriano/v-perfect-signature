@@ -2,14 +2,10 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
   splitting: false,
+  sourcemap: true,
   clean: true,
+  format: ['cjs', 'esm', 'iife'],
+  globalName: 'VPerfectSignature',
   dts: true,
-  minify: true,
-  outExtension ({ format }) {
-    return {
-      js: format === 'esm' ? '.mjs' : `.${format}`
-    }
-  }
-})
+});

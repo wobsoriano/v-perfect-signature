@@ -1,5 +1,6 @@
 {
   "name": "v-perfect-signature",
+  "type": "module",
   "version": "1.3.0",
   "description": "Perfect pressure-sensitive signature drawing for Vue 2 and 3",
   "keywords": [
@@ -19,14 +20,26 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
   "scripts": {
     "dev": "tsup --watch --onSuccess \"pnpm --filter playground dev\"",
     "build": "tsup",
@@ -55,7 +68,7 @@
     "eslint": "^8.50.0",
     "jsdom": "^22.1.0",
     "tslib": "^2.6.2",
-    "tsup": "^7.2.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5",
     "vitest-canvas-mock": "^0.3.3",
