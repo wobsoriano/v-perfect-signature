@@ -45,7 +45,9 @@
     "build": "tsup",
     "prepublishOnly": "pnpm run build",
     "test": "vitest run",
-    "release": "bumpp && pnpm publish"
+    "release": "bumpp && pnpm publish",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.7.1",
@@ -61,18 +63,18 @@
     "vue-demi": "^0.14.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.43.1",
+    "@antfu/eslint-config": "^2.4.5",
     "@vue/test-utils": "2.4.1",
-    "bumpp": "^9.2.0",
+    "bumpp": "^9.2.1",
     "canvas": "^2.11.2",
-    "eslint": "^8.50.0",
-    "jsdom": "^22.1.0",
+    "eslint": "^8.55.0",
+    "jsdom": "^23.0.1",
     "tslib": "^2.6.2",
     "tsup": "^8.0.1",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4",
     "vitest-canvas-mock": "^0.3.3",
-    "vue": "^3.3.4"
+    "vue": "^3.3.11"
   },
   "homepage": "https://github.com/wobsoriano/v-perfect-signature#readme"
 }
