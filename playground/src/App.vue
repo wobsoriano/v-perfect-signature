@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import VPerfectSignature from 'v-perfect-signature'
+import { ref } from 'vue'
+import Nav from './components/Nav.vue'
+
+const strokeOptions = {
+  size: 8,
+  thinning: 0.5,
+  smoothing: 0.5,
+  streamline: 0.5,
+  last: true,
+}
+
+const signaturePad = ref()
+
+function clear() {
+  signaturePad.value?.clear()
+}
+
+function download() {
+  if (signaturePad.value?.isEmpty()) {
+    // eslint-disable-next-line no-alert
+    alert('Empty signature pad!')
+    return
+  }
+
+  const link = document.createElement('a')
+  link.download = 'signature.png'
+  link.href = signaturePad.value?.toDataURL()
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+</script>
+
 <template>
   <Nav />
   <main>
@@ -21,40 +56,6 @@
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-import VPerfectSignature from 'v-perfect-signature'
-import { ref } from 'vue'
-import Nav from './components/Nav.vue'
-
-const strokeOptions = {
-  size: 8,
-  thinning: 0.5,
-  smoothing: 0.5,
-  streamline: 0.5,
-  last: true,
-}
-
-const signaturePad = ref()
-
-const clear = () => {
-  signaturePad.value?.clear()
-}
-
-const download = () => {
-  if (signaturePad.value?.isEmpty()) {
-    alert('Empty signature pad!')
-    return
-  }
-
-  const link = document.createElement('a')
-  link.download = 'signature.png'
-  link.href = signaturePad.value?.toDataURL()
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-}
-</script>
 
 <style>
 .clear-btn {

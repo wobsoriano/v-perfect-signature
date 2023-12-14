@@ -1,7 +1,7 @@
 import VPerfectSignature from './components/VPerfectSignature'
 
 export {
-  VPerfectSignature
+  VPerfectSignature,
 }
 
 export default VPerfectSignature

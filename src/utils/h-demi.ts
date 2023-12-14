@@ -1,13 +1,14 @@
 import { h as hDemi, isVue2 } from 'vue-demi'
 
 interface Options {
-  props?: Object
-  domProps?: Object
-  on?: Object
+  props?: Record<string, unknown>
+  domProps?: Record<string, unknown>
+  on?: Record<string, unknown>
 }
 
-const adaptOnsV3 = (ons: Object) => {
-  if (!ons) return null
+function adaptOnsV3(ons: Record<string, unknown>) {
+  if (!ons)
+    return null
   return Object.entries(ons).reduce((ret, [key, handler]) => {
     key = key.charAt(0).toUpperCase() + key.slice(1)
     key = `on${key}`
@@ -15,12 +16,9 @@ const adaptOnsV3 = (ons: Object) => {
   }, {})
 }
 
-const h = (
-  type: String | Object,
-  options: Options & any = {},
-  children?: any,
-) => {
-  if (isVue2) return hDemi(type, options, children)
+function h(type: string | Record<string, unknown>, options: Options & any = {}, children?: any) {
+  if (isVue2)
+    return hDemi(type, options, children)
 
   const { props, domProps, on, ...extraOptions } = options
 

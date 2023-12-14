@@ -37,25 +37,25 @@ describe('#toDataURL', () => {
 
   // TODO: Returns incorrect data url. Bug?
   it.todo('should return data uri', async () => {
-      const wrapper = shallowMount(VPerfectSignature)
+    const wrapper = shallowMount(VPerfectSignature)
 
-      await wrapper.setData({
-          allInputPoints: inputPointsMockData
-      })
+    await wrapper.setData({
+      allInputPoints: inputPointsMockData,
+    })
 
-      expect(wrapper.vm.toDataURL()).toBe(mockDataURL)
+    expect(wrapper.vm.toDataURL()).toBe(mockDataURL)
   })
 })
 
 describe('#fromDataURL', () => {
-  it('should set signature from data uri', async() => {
+  it('should set signature from data uri', async () => {
     const wrapper = shallowMount(VPerfectSignature)
     await expect(wrapper.vm.fromDataURL(mockDataURL)).resolves.toBe(true)
   })
 
   vi.spyOn(console, 'error').mockImplementation(() => {})
 
-  it('fails if data uri is incorrect', async() => {
+  it('fails if data uri is incorrect', async () => {
     const wrapper = shallowMount(VPerfectSignature)
 
     await expect(wrapper.vm.fromDataURL('random string')).rejects.toThrow(

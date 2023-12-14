@@ -14,25 +14,25 @@ pnpm add v-perfect-signature
 
 ```vue
 <script setup>
-  import { ref } from 'vue';
-  import { VPerfectSignature } from 'v-perfect-signature';
+import { ref } from 'vue'
+import { VPerfectSignature } from 'v-perfect-signature'
 
-  const signaturePad = ref();
-  const strokeOptions = {
-    size: 16,
-    thinning: 0.75,
-    smoothing: 0.5,
-    streamline: 0.5,
-  };
+const signaturePad = ref()
+const strokeOptions = {
+  size: 16,
+  thinning: 0.75,
+  smoothing: 0.5,
+  streamline: 0.5,
+}
 
-  function toDataURL() {
-    const dataURL = signaturePad.value.toDataURL();
-    console.log(dataURL);
-  }
+function toDataURL() {
+  const dataURL = signaturePad.value.toDataURL()
+  console.log(dataURL)
+}
 </script>
 
 <template>
-  <VPerfectSignature :stroke-options="strokeOptions" ref="signaturePad" />
+  <VPerfectSignature ref="signaturePad" :stroke-options="strokeOptions" />
 </template>
 ```
 

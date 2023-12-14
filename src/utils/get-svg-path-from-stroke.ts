@@ -1,5 +1,6 @@
 export default function getSvgPathFromStroke(stroke: number[][]) {
-  if (!stroke.length) return ''
+  if (!stroke.length)
+    return ''
 
   const d = stroke.reduce(
     (acc, [x0, y0], i, arr) => {

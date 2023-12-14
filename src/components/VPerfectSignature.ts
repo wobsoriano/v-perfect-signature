@@ -3,8 +3,6 @@ import { defineComponent } from 'vue-demi'
 import type { StrokeOptions } from 'perfect-freehand'
 import * as PerfectFreehand from 'perfect-freehand'
 
-const { getStroke } = PerfectFreehand
-
 import h from '../utils/h-demi'
 import getSvgPathFromStroke from '../utils/get-svg-path-from-stroke'
 import {
@@ -14,6 +12,8 @@ import {
   DEFAULT_WIDTH,
   IMAGE_TYPES,
 } from '../utils/constants'
+
+const { getStroke } = PerfectFreehand
 
 type InputPoints = number[]
 
@@ -52,14 +52,14 @@ export default defineComponent({
     isDrawing: false,
     isLocked: false,
     cachedImages: [] as HTMLImageElement[],
-    ctx: null as null | CanvasRenderingContext2D
+    ctx: null as null | CanvasRenderingContext2D,
   }),
   watch: {
     backgroundColor() {
       this.setBackgroundAndPenColor()
     },
     penColor(color: string) {
-      const ctx = this.getCanvasContext();
+      const ctx = this.getCanvasContext()
       if (ctx)
         ctx.fillStyle = color
     },
@@ -82,15 +82,16 @@ export default defineComponent({
   methods: {
     _drawImage(image: HTMLImageElement) {
       const canvas = this.getCanvasElement()
-      const ctx = this.getCanvasContext();
+      const ctx = this.getCanvasContext()
       const dpr = window.devicePixelRatio || 1
 
-      ctx?.scale(1/dpr, 1/dpr) // To allow proper scaling of the image on HiDPI, we need to reset the scaling before calling `drawImage`
+      ctx?.scale(1 / dpr, 1 / dpr) // To allow proper scaling of the image on HiDPI, we need to reset the scaling before calling `drawImage`
       ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
       ctx?.scale(dpr, dpr) // Set scaling back to original value
     },
     handlePointerDown(e: PointerEvent) {
-      if (this.isLocked) return
+      if (this.isLocked)
+        return
 
       e.preventDefault()
 
@@ -104,8 +105,10 @@ export default defineComponent({
       this.$emit('onBegin', e)
     },
     handlePointerMove(e: PointerEvent) {
-      if (this.isLocked) return
-      if (!this.isDrawing) return
+      if (this.isLocked)
+        return
+      if (!this.isDrawing)
+        return
 
       if (e.buttons === 1) {
         e.preventDefault()
@@ -122,12 +125,14 @@ export default defineComponent({
       }
     },
     handlePointerUp(e: PointerEvent) {
-      if (this.isLocked) return
+      if (this.isLocked)
+        return
 
       e.preventDefault()
       this.isDrawing = false
 
-      if (!this.currentInputPoints) return
+      if (!this.currentInputPoints)
+        return
 
       this.allInputPoints = [...this.allInputPoints, this.currentInputPoints]
       this.currentInputPoints = null
@@ -135,14 +140,17 @@ export default defineComponent({
       this.$emit('onEnd', e)
     },
     handlePointerEnter(e: PointerEvent) {
-      if (this.isLocked) return
+      if (this.isLocked)
+        return
 
       if (e.buttons === 1)
         this.handlePointerDown(e)
     },
     handlePointerLeave(e: PointerEvent) {
-      if (this.isLocked) return
-      if (!this.isDrawing) return
+      if (this.isLocked)
+        return
+      if (!this.isDrawing)
+        return
       this.handlePointerUp(e)
     },
     isEmpty() {
@@ -190,7 +198,8 @@ export default defineComponent({
         )
       }
 
-      if (this.isEmpty()) return
+      if (this.isEmpty())
+        return
 
       const canvas = this.getCanvasElement()
       return canvas.toDataURL(type ?? 'image/png')
@@ -200,10 +209,10 @@ export default defineComponent({
     },
     getCanvasContext() {
       if (!this.ctx) {
-        const canvas = this.getCanvasElement();
-        this.ctx = canvas.getContext('2d');
+        const canvas = this.getCanvasElement()
+        this.ctx = canvas.getContext('2d')
       }
-      return this.ctx;
+      return this.ctx
     },
     setBackgroundAndPenColor() {
       const canvas = this.getCanvasElement()
@@ -219,7 +228,7 @@ export default defineComponent({
 
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
-      const ctx = this.getCanvasContext();
+      const ctx = this.getCanvasContext()
       ctx?.scale(dpr, dpr)
 
       canvas.style.width = `${rect.width}px`
@@ -234,7 +243,7 @@ export default defineComponent({
     },
     inputPointsHandler() {
       const canvas = this.getCanvasElement()
-      const ctx = this.getCanvasContext();
+      const ctx = this.getCanvasContext()
 
       // Makes smooth lines
       ctx?.clearRect(0, 0, canvas.width, canvas.height)
@@ -250,7 +259,8 @@ export default defineComponent({
         ctx?.fill(myPath)
       })
 
-      if (!this.currentInputPoints) return
+      if (!this.currentInputPoints)
+        return
       const pathData = getSvgPathFromStroke(
         getStroke(this.currentInputPoints!, this.strokeOptions),
       )
